@@ -1,3 +1,17 @@
+/* GLOBAL BACKGROUND MIST LAYER */
+#mist-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.22;       /* subtle, dreamy */
+  filter: blur(6px) saturate(1.3);
+  pointer-events: none; /* makes it non-clickable */
+  z-index: -3;        /* ensures background behind EVERYTHING */
+}
+
 /* RESET + BASE */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -71,6 +85,10 @@ body{
   background: url("assets/cherryblossom1.jpg") center center/cover no-repeat;
   filter: brightness(0.65) saturate(1.1);
 }
+.hero {
+  backdrop-filter: blur(1.5px);
+}
+
 .hero-bg::after {
   content: "";
   position: absolute;

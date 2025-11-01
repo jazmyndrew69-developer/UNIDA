@@ -125,3 +125,18 @@ $$('[data-close]').forEach(btn=>{
 window.addEventListener('keydown', (e)=>{
   if (e.key === 'Escape') closeScenes();
 });
+// Motion animation for hero section
+gsap.from(".brand-title", {
+  opacity: 0,
+  y: -40,
+  duration: 1.2,
+  ease: "power3.out",
+});
+
+gsap.from(".tagline", {
+  opacity: 0,
+  y: 20,
+  duration: 1.6,
+  delay: 0.4,
+  ease: "power3.out",
+});

@@ -150,7 +150,7 @@ body{
 }
 .shot-about{
   height:260px; border-radius:16px;
-  background: url('assets/portrait.jpg') center/cover no-repeat, #0e0e0e;
+  background: url('assets/about.jpgt.avif') center/cover no-repeat, #0e0e0e;
   border:1px solid rgba(255,255,255,.12);
 }
 .heading{ font-family:"Playfair Display",serif; font-weight:800; font-size:clamp(26px,4vw,42px); }

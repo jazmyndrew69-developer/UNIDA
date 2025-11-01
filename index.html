@@ -10,7 +10,15 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-   
+
+  <!-- GLOBAL MIST BACKGROUND (must be FIRST in body) -->
+  <video id="mist-bg" autoplay muted loop playsinline>
+    <source src="assets/fog.mp4" type="video/mp4">
+  </video>
+
+  <!-- ALL SCENES/SECTIONS START AFTER THIS -->
+  <div class="scene-container">
+
   <!-- NAV -->
   <header class="nav">
     <div class="brand">Portfolio</div>
@@ -47,10 +55,7 @@
       <div class="hint">Use the top menu to open scenes. Close to return here.</div>
     </div>
   </section>
- <!-- Mist / Fog background layer -->
-<video class="mist-layer" autoplay muted loop playsinline>
-  <source src="assets/fog.mp4" type="video/mp4">
-</video>
+
 
   <!-- GLOBAL OVERLAY (shown when any scene is open) -->
   <div id="overlay" class="overlay" aria-hidden="true">

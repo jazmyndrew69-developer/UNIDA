@@ -1,3 +1,17 @@
+/* GLOBAL BACKGROUND MIST LAYER */
+#mist-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.23;
+  filter: blur(7px) saturate(1.2);
+  pointer-events: none;
+  z-index: -100;
+}
+
 /* RESET + BASE */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -67,7 +81,7 @@ body{
 .hero-bg {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: 0;
   background: url("assets/cherryblossom1.jpg") center center/cover no-repeat;
   filter: brightness(0.65) saturate(1.1);
 }
@@ -106,21 +120,9 @@ body{
   opacity: 0.35;
   filter: blur(6px) saturate(1.3);
   pointer-events: none;
-  z-index: -2;
+  z-index: -100;
 }
-/* GLOBAL BACKGROUND MIST LAYER */
-#mist-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  opacity: 0.22;       /* subtle, dreamy */
-  filter: blur(6px) saturate(1.3);
-  pointer-events: none; /* makes it non-clickable */
-  z-index: -3;        /* ensures background behind EVERYTHING */
-}
+
 
 }
 .toggle-wrap{
@@ -174,10 +176,14 @@ body{
 
 /* SCENE (modal panels) */
 .scene[hidden]{ display:none; }
-.scene{
-  position:fixed; inset:0; display:grid; place-items:center;
-  z-index:80; /* above overlay */
+.scene {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2; /* mist stays behind everything */
 }
+
 .scene-panel{
   position:relative;
   width:min(980px, 92vw);

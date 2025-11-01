@@ -3,62 +3,67 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>UNIDA — U-NEED-A</title>
+  <title>Jazmyn’s Portfolio — UNIDA</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <!-- NAV -->
   <header class="nav">
     <div class="brand">UNIDA</div>
     <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+      <button class="nav-link" data-scene="about" aria-controls="scene-about">About</button>
+      <button class="nav-link" data-scene="services" aria-controls="scene-services">Services</button>
+      <button class="nav-link" data-scene="projects" aria-controls="scene-projects">Projects</button>
+      <button class="nav-link" data-scene="contact" aria-controls="scene-contact">Contact</button>
     </nav>
   </header>
 
-  <!-- HERO -->
-  <section id="home" class="section hero">
-    <!-- soft texture bg (optional) -->
+  <!-- HERO / HOME (default scene) -->
+  <section id="home" class="hero scene--home" aria-label="Home">
     <div class="hero-bg"></div>
-    <!-- falling petals -->
     <div id="petals"></div>
 
     <div class="hero-inner">
-      <h1 class="brand-title">U-NEED-A</h1>
+      <h1 class="brand-title" id="brand-title">Jazmyn’s Portfolio</h1>
 
       <div id="toggle-wrapper" class="toggle-wrap" aria-live="polite">
         <span id="toggle-role" class="toggle-role">Developer</span>
       </div>
-      <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
+      <div id="coming-soon" class="coming-soon" aria-hidden="true">Designer — coming soon</div>
 
       <p class="tagline">
-        We craft sleek, pastel-luxury landing pages and websites that make brands feel effortless.
+        We craft pastel-luxury landing pages and websites that feel calm, premium, and fast.
       </p>
 
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#services">View Services</a>
-        <a class="btn btn-ghost" href="#projects">See Projects</a>
+        <button class="btn btn-primary" data-scene="services" aria-controls="scene-services">View Services</button>
+        <button class="btn btn-ghost" data-scene="projects" aria-controls="scene-projects">See Projects</button>
       </div>
+
+      <div class="hint">Use the top menu to open scenes. Close to return here.</div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="section about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-shot"></div>
-        <div class="about-copy">
-          <h2 class="heading">Who We Are</h2>
+  <!-- GLOBAL OVERLAY (shown when any scene is open) -->
+  <div id="overlay" class="overlay" aria-hidden="true">
+    <div class="mist" aria-hidden="true"></div>
+  </div>
+
+  <!-- SCENE: ABOUT -->
+  <section id="scene-about" class="scene" aria-modal="true" role="dialog" aria-labelledby="about-title" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close aria-label="Close About">✕</button>
+      <div class="panel-grid">
+        <div class="panel-shot shot-about"></div>
+        <div class="panel-copy">
+          <h2 class="heading" id="about-title">Who We Are</h2>
           <p>
             UNIDA is a design-driven development studio. We combine quiet elegance with solid engineering to deliver
-            interfaces that feel calm, premium, and fast. No conversion promises—just clean execution that supports
-            your business goals.
+            interfaces that feel calm, premium, and fast. No conversion promises—just clean execution that supports your goals.
           </p>
           <ul class="bullets">
             <li>Pastel luxury aesthetic, high legibility</li>
@@ -70,14 +75,14 @@
     </div>
   </section>
 
-  <!-- SERVICES & PACKAGES -->
-  <section id="services" class="section services">
-    <div class="container">
-      <h2 class="heading center">Services & Packages</h2>
+  <!-- SCENE: SERVICES -->
+  <section id="scene-services" class="scene" aria-modal="true" role="dialog" aria-labelledby="services-title" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close aria-label="Close Services">✕</button>
+      <h2 class="heading center" id="services-title">Services & Packages</h2>
       <p class="sub center">Clear, simple, premium execution. You choose the scope; we ship with care.</p>
 
       <div class="cards">
-        <!-- Starter -->
         <article class="card neon-border">
           <div class="price-badge">₹15,000</div>
           <h3>Starter</h3>
@@ -87,10 +92,9 @@
             <li>WhatsApp CTA integration</li>
             <li>Delivery in 3–5 days</li>
           </ul>
-          <a class="btn btn-primary w100" href="#contact">Get Started</a>
+          <a class="btn btn-primary w100" href="#contact" data-scene="contact" aria-controls="scene-contact">Get Started</a>
         </article>
 
-        <!-- Pro -->
         <article class="card neon-border">
           <div class="price-badge">₹25,000</div>
           <h3>Pro</h3>
@@ -100,10 +104,9 @@
             <li>Lead capture form flow</li>
             <li>Delivery in 5–8 days</li>
           </ul>
-          <a class="btn btn-primary w100" href="#contact">Book Pro</a>
+          <a class="btn btn-primary w100" href="#contact" data-scene="contact" aria-controls="scene-contact">Book Pro</a>
         </article>
 
-        <!-- Premium -->
         <article class="card neon-border">
           <div class="price-badge">₹40,000+</div>
           <h3>Premium</h3>
@@ -113,17 +116,18 @@
             <li>Light CMS / API-ready scaffold</li>
             <li>Delivery: scoped per brief</li>
           </ul>
-          <a class="btn btn-primary w100" href="#contact">Discuss Scope</a>
+          <a class="btn btn-primary w100" href="#contact" data-scene="contact" aria-controls="scene-contact">Discuss Scope</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section projects">
-    <div class="container">
-      <h2 class="heading center">Our Projects</h2>
-      <p class="sub center">A few live demos. Each opens in a new tab.</p>
+  <!-- SCENE: PROJECTS -->
+  <section id="scene-projects" class="scene" aria-modal="true" role="dialog" aria-labelledby="projects-title" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close aria-label="Close Projects">✕</button>
+      <h2 class="heading center" id="projects-title">Our Projects</h2>
+      <p class="sub center">Live demos — open in a new tab.</p>
 
       <div class="grid">
         <a class="project-card pastel-border" target="_blank"
@@ -150,11 +154,13 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section contact">
-    <div class="container contact-inner">
-      <h2 class="heading center">Let’s Build Something Calm & Powerful</h2>
+  <!-- SCENE: CONTACT -->
+  <section id="scene-contact" class="scene" aria-modal="true" role="dialog" aria-labelledby="contact-title" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close aria-label="Close Contact">✕</button>
+      <h2 class="heading center" id="contact-title">Let’s Build Something Calm & Powerful</h2>
       <p class="sub center">Fastest: WhatsApp • We reply within 2 business hours.</p>
+
       <div class="contact-cta">
         <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
         <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
@@ -162,7 +168,7 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (always under hero; scenes overlay above) -->
   <footer class="footer">
     <div class="footer-left">
       <h3>UNIDA</h3>

@@ -11,172 +11,55 @@
 </head>
 <body>
 
-  <!-- GLOBAL MIST BACKGROUND -->
-<video id="mist-bg" autoplay muted loop playsinline>
-  <source src="assets/fog.mp4" type="video/mp4">
-</video>
+ <body>
 
+  <!-- GLOBAL MIST BACKGROUND -->
+  <video id="mist-bg" autoplay muted loop playsinline>
+    <source src="assets/fog.mp4" type="video/mp4">
+  </video>
 
   <!-- ALL SCENES/SECTIONS START AFTER THIS -->
   <div class="scene-container">
 
-  <!-- NAV -->
-  <header class="nav">
-    <div class="brand">Portfolio</div>
-    <nav>
-      <button class="nav-link" data-scene="about" aria-controls="scene-about">About</button>
-      <button class="nav-link" data-scene="services" aria-controls="scene-services">Services</button>
-      <button class="nav-link" data-scene="projects" aria-controls="scene-projects">Projects</button>
-      <button class="nav-link" data-scene="contact" aria-controls="scene-contact">Contact</button>
-    </nav>
-  </header>
+    <!-- NAV -->
+    <header class="nav">
+      <div class="brand">Portfolio</div>
+      <nav>
+        <button class="nav-link" data-scene="about">About</button>
+        <button class="nav-link" data-scene="services">Services</button>
+        <button class="nav-link" data-scene="projects">Projects</button>
+        <button class="nav-link" data-scene="contact">Contact</button>
+      </nav>
+    </header>
 
-  <!-- HERO / HOME (default scene) -->
-  <section id="home" class="hero scene--home" aria-label="Home">
-    <div class="hero-bg"></div>
-    <div id="petals"></div>
+    <!-- HERO -->
+    <section id="home" class="hero scene--home">
+      <div class="hero-bg"></div>
+      <div id="petals"></div>
 
-    <div class="hero-inner">
-      <h1 class="brand-title" id="brand-title">Jazmyn’s Portfolio</h1>
+      <div class="hero-inner">
+        <h1 class="brand-title" id="brand-title">Jazmyn’s Portfolio</h1>
 
-      <div id="toggle-wrapper" class="toggle-wrap" aria-live="polite">
-        <span id="toggle-role" class="toggle-role">Developer</span>
-      </div>
-      <div id="coming-soon" class="coming-soon" aria-hidden="true">Designer — coming soon</div>
-
-      <p class="tagline">
-        Elegance, engineered into digital experiences that feel expensive.
-      </p>
-
-      <div class="hero-ctas">
-        <button class="btn btn-primary" data-scene="services" aria-controls="scene-services">View Services</button>
-        <button class="btn btn-ghost" data-scene="projects" aria-controls="scene-projects">See Projects</button>
-      </div>
-
-      <div class="hint">Use the top menu to open scenes. Close to return here.</div>
-    </div>
-  </section>
-
-
-  <!-- GLOBAL OVERLAY (shown when any scene is open) -->
-  <div id="overlay" class="overlay" aria-hidden="true">
-    <div class="mist" aria-hidden="true"></div>
-  </div>
-
-  <!-- SCENE: ABOUT -->
-  <section id="scene-about" class="scene" aria-modal="true" role="dialog" aria-labelledby="about-title" hidden>
-    <div class="scene-panel">
-      <button class="scene-close" data-close aria-label="Close About">✕</button>
-      <div class="panel-grid">
-        <div class="panel-shot shot-about"></div>
-        <div class="panel-copy">
-          <h2 class="heading" id="about-title">Who We Are</h2>
-          <p>
-            Hello!I am Jazmyn and this is my design-driven development studio. We combine quiet elegance with solid engineering to deliver
-            interfaces that feel calm, premium, and fast. No conversion promises—just clean execution that supports your goals.
-          </p>
-          <ul class="bullets">
-            <li>Luxury aesthetic, high legibility</li>
-            <li>Landing Pages, full stack websites & CI</li>
-            <li>WhatsApp CTAs, simple lead flows, tidy handoffs</li>
-          </ul>
+        <div id="toggle-wrapper" class="toggle-wrap" aria-live="polite">
+          <span id="toggle-role" class="toggle-role">Developer</span>
         </div>
+        <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
+
+        <p class="tagline">Elegance, engineered into digital experiences that feel expensive.</p>
+
+        <div class="hero-ctas">
+          <button class="btn btn-primary" data-scene="services">View Services</button>
+          <button class="btn btn-ghost" data-scene="projects">See Projects</button>
+        </div>
+
+        <div class="hint">Use the top menu to open scenes. Close to return here.</div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SCENE: SERVICES -->
-  <section id="scene-services" class="scene" aria-modal="true" role="dialog" aria-labelledby="services-title" hidden>
-    <div class="scene-panel">
-      <button class="scene-close" data-close aria-label="Close Services">✕</button>
-      <h2 class="heading center" id="services-title">Services & Packages</h2>
-      <p class="sub center">Clear, simple, premium execution. You choose the scope; we ship with care.</p>
+    <!-- GLOBAL OVERLAY -->
+    <div id="overlay" class="overlay"></div>
+</div> <!-- end scene-container -->
 
-      <div class="cards">
-        <article class="card neon-border">
-          <div class="price-badge">₹15,000</div>
-          <h3>Starter</h3>
-          <ul class="list">
-            <li>Single landing page</li>
-            <li>Responsive + SEO basics</li>
-            <li>WhatsApp CTA integration</li>
-            <li>Delivery in 3–5 days</li>
-          </ul>
-          <a class="btn btn-primary w100" href="#contact" data-scene="contact" aria-controls="scene-contact">Get Started</a>
-        </article>
-
-        <article class="card neon-border">
-          <div class="price-badge">₹25,000</div>
-          <h3>Pro</h3>
-          <ul class="list">
-            <li>Multi-section website</li>
-            <li>Speed tuning + analytics</li>
-            <li>Lead capture form flow</li>
-            <li>Delivery in 5–8 days</li>
-          </ul>
-          <a class="btn btn-primary w100" href="#contact" data-scene="contact" aria-controls="scene-contact">Book Pro</a>
-        </article>
-
-        <article class="card neon-border">
-          <div class="price-badge">₹40,000+</div>
-          <h3>Premium</h3>
-          <ul class="list">
-            <li>Custom components & sections</li>
-            <li>Micro-interactions & polish</li>
-            <li>Light CMS / API-ready scaffold</li>
-            <li>Delivery: scoped per brief</li>
-          </ul>
-          <a class="btn btn-primary w100" href="#contact" data-scene="contact" aria-controls="scene-contact">Discuss Scope</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCENE: PROJECTS -->
-  <section id="scene-projects" class="scene" aria-modal="true" role="dialog" aria-labelledby="projects-title" hidden>
-    <div class="scene-panel">
-      <button class="scene-close" data-close aria-label="Close Projects">✕</button>
-      <h2 class="heading center" id="projects-title">Our Projects</h2>
-      <p class="sub center">Live demos — open in a new tab.</p>
-
-      <div class="grid">
-        <a class="project-card pastel-border" target="_blank"
-           href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5Mlf5S&f=1&path=%2F">
-          <img src="assets/house.jpg" alt="Astral Heights" />
-          <h3>Astral Heights</h3>
-          <p>Luxury real-estate landing page</p>
-        </a>
-
-        <a class="project-card pastel-border" target="_blank"
-           href="https://preview--cinematic-finance-forge.lovable.app/">
-          <img src="assets/ecom.jpg" alt="NEXUS E-commerce" />
-          <h3>NEXUS</h3>
-          <p>E-commerce experience</p>
-        </a>
-
-        <a class="project-card pastel-border" target="_blank"
-           href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
-          <img src="assets/ai-eco.jpg" alt="NEURALFRAME" />
-          <h3>NEURALFRAME</h3>
-          <p>AI cognition showcase</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCENE: CONTACT -->
-  <section id="scene-contact" class="scene" aria-modal="true" role="dialog" aria-labelledby="contact-title" hidden>
-    <div class="scene-panel">
-      <button class="scene-close" data-close aria-label="Close Contact">✕</button>
-      <h2 class="heading center" id="contact-title">Let’s Build Something Calm & Powerful</h2>
-      <p class="sub center">Fastest: WhatsApp • We reply within 2 business hours.</p>
-
-      <div class="contact-cta">
-        <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
-        <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
-      </div>
-    </div>
-  </section>
 
   <!-- FOOTER (always under hero; scenes overlay above) -->
   <footer class="footer">

@@ -45,22 +45,22 @@ body{
   color:#dfe2ea; background:transparent; border:none; cursor:pointer;
   margin-left:22px; font-weight:700; letter-spacing:.4px;
 }
-.nav button.nav-link:hover{ color:#fff; }
+.nav button.nav-link:hover{ color:#fff; 
+}
 
-/* HERO (home scene behind everything) */
-.hero{
-  min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
-  position:relative; z-index:1;
-  .hero {
-  position: relative;
+/* HERO (home) */
+.hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  position: relative;
+  flex-direction: column;
+  z-index: 2;
   backdrop-filter: blur(4px);
 }
+
 
 .brand-title {
   font-family: "Playfair Display", serif;
@@ -77,7 +77,6 @@ body{
   font-weight: 300;
 }
 
-}
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -85,6 +84,7 @@ body{
   background: url("assets/cherryblossom1.jpg") center center/cover no-repeat;
   filter: brightness(0.65) saturate(1.1);
 }
+
 .hero {
   backdrop-filter: blur(1.5px);
 }
@@ -171,8 +171,9 @@ body{
   inset: 0;
   display: grid;
   place-items: center;
-  z-index: 1; /* content layer */
+  z-index: 50; /* ABOVE hero + mist */
 }
+
 
 
 .scene-panel{

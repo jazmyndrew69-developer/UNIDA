@@ -69,17 +69,16 @@ body {
 
 /* ============================= */
 /* HERO */
-/* ============================= */
 .hero {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  position: relative;
-  z-index: 2;
   backdrop-filter: blur(4px);
+  z-index: 2;
 }
 
 .hero-bg {
@@ -102,8 +101,6 @@ body {
   );
 }
 
-/* ============================= */
-/* HERO TEXT */
 /* ============================= */
 .brand-title {
   font-family: "Playfair Display", serif;

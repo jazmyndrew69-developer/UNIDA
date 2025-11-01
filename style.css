@@ -1,17 +1,3 @@
-/* GLOBAL BACKGROUND MIST LAYER */
-#mist-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  opacity: 0.22;       /* subtle, dreamy */
-  filter: blur(6px) saturate(1.3);
-  pointer-events: none; /* makes it non-clickable */
-  z-index: -3;        /* ensures background behind EVERYTHING */
-}
-
 /* RESET + BASE */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -121,6 +107,19 @@ body{
   filter: blur(6px) saturate(1.3);
   pointer-events: none;
   z-index: -2;
+}
+/* GLOBAL BACKGROUND MIST LAYER */
+#mist-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.22;       /* subtle, dreamy */
+  filter: blur(6px) saturate(1.3);
+  pointer-events: none; /* makes it non-clickable */
+  z-index: -3;        /* ensures background behind EVERYTHING */
 }
 
 }

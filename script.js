@@ -2,64 +2,78 @@
 const $ = (q, c=document)=>c.querySelector(q);
 const $$ = (q, c=document)=>Array.from(c.querySelectorAll(q));
 
-// parallax bg
-const bg = $('.bg-parallax');
-window.addEventListener('scroll', () => {
-  const speed = parseFloat(bg?.dataset.speed || '0.2');
-  const y = window.scrollY * speed;
-  if (bg) bg.style.transform = `translateY(${y}px)`;
+/* ===== Petals (soft, continuous) ===== */
+(function petals(){
+  const container = $('#petals');
+  if (!container) return;
+  const PETAL_COUNT = window.innerWidth < 768 ? 14 : 28;
+
+  for (let i=0;i<PETAL_COUNT;i++){
+    const p = document.createElement('span');
+    p.className = 'petal';
+    const delay = (Math.random()*8).toFixed(2);
+    const dur = (10 + Math.random()*12).toFixed(2);
+    const size = (8 + Math.random()*10).toFixed(0);
+    const left = (Math.random()*100).toFixed(2);
+
+    p.style.left = left + '%';
+    p.style.animationDelay = delay + 's';
+    p.style.animationDuration = dur + 's';
+    p.style.width = size + 'px';
+    p.style.height = size*0.7 + 'px';
+
+    container.appendChild(p);
+  }
+})();
+
+/* Petal CSS (injected for clarity) */
+const petalStyle = document.createElement('style');
+petalStyle.textContent = `
+.petal{
+  position:absolute; top:-6vh; background: radial-gradient(circle at 30% 30%, #FFD6E4 0%, #FFC5D9 60%, rgba(255,255,255,0) 61%);
+  border-radius: 60% 40% 60% 40%;
+  opacity:.8; filter: blur(.2px);
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0%   { transform: translateY(-6vh) translateX(0) rotate(0deg); opacity:.0; }
+  10%  { opacity:.9; }
+  100% { transform: translateY(110vh) translateX(20vw) rotate(160deg); opacity:.0; }
+}
+`;
+document.head.appendChild(petalStyle);
+
+/* ===== Developer / Designer toggle (elegant fade) ===== */
+const roleEl = $('#toggle-role');
+const wrapEl = $('#toggle-wrapper');
+const comingEl = $('#coming-soon');
+const roles = ['Developer','Designer'];
+let idx = 0;
+
+function setRole(){
+  idx = (idx + 1) % roles.length;
+  if (!roleEl) return;
+  // fade out, swap, fade in
+  roleEl.style.opacity = '0';
+  roleEl.style.transform = 'translateY(4px)';
+  setTimeout(()=>{
+    roleEl.textContent = roles[idx];
+    roleEl.style.opacity = '1';
+    roleEl.style.transform = 'translateY(0)';
+    if (comingEl) comingEl.style.opacity = roles[idx] === 'Designer' ? '1' : '0';
+  }, 220);
+}
+setInterval(setRole, 2000);
+
+/* ===== Smooth anchor scroll ===== */
+$$('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    const id = a.getAttribute('href');
+    if (!id || id === '#') return;
+    const el = $(id);
+    if (el){
+      e.preventDefault();
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
 });
-
-// start flash
-const start = $('#start-journey');
-const flash = $('.red-flash');
-if (start && flash){
-  start.addEventListener('click', () => {
-    flash.style.transition = 'opacity .25s ease';
-    flash.style.opacity = 1;
-    setTimeout(()=> flash.style.opacity = 0, 220);
-    // Optionally: play audio if you add assets/engine-rev.mp3
-    // const rev = new Audio('assets/engine-rev.mp3'); rev.play().catch(()=>{});
-    document.getElementById('origin')?.scrollIntoView({behavior:'smooth'});
-  });
-}
-
-// intersection reveal
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if (e.isIntersecting) e.target.classList.add('show');
-  });
-},{threshold:.18});
-$$('.reveal').forEach(el=> io.observe(el));
-
-// gauges (speed + rpm) tied to Lap 2 visibility
-const speedArc = $('#speed-arc');
-const speedVal = $('#speed-val');
-const rpmFill = $('#rpm-fill');
-const rpmVal = $('#rpm-val');
-
-function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
-
-function updateGauges(){
-  const perf = $('#craft');
-  if (!perf) return;
-  const rect = perf.getBoundingClientRect();
-  const vh = window.innerHeight;
-
-  // ratio 0..1 for how much Lap 2 is on screen
-  const visible = clamp(1 - clamp(rect.top/vh,0,1) + clamp((vh - rect.bottom)/vh,0,1), 0, 1);
-
-  const total = 157; // arc length dasharray
-  const offset = total * (1 - visible);
-  if (speedArc) speedArc.style.strokeDashoffset = String(offset);
-
-  const speed = Math.round(visible * 240);
-  if (speedVal) speedVal.textContent = String(speed);
-
-  const rpm = Math.round(visible * 9000);
-  if (rpmFill) rpmFill.style.width = `${visible*100}%`;
-  if (rpmVal) rpmVal.textContent = String(rpm);
-}
-updateGauges();
-window.addEventListener('scroll', updateGauges);
-window.addEventListener('resize', updateGauges);

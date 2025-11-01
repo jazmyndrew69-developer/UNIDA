@@ -3,155 +3,162 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>UNIDA — Precision in Motion</title>
+  <title>UNIDA — U-NEED-A</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
   <!-- NAV -->
   <header class="nav">
     <div class="brand">UNIDA</div>
     <nav>
-      <a href="#hero">Home</a>
-      <a href="#origin">Origin</a>
-      <a href="#craft">Craft</a>
-      <a href="#showcase">Showcase</a>
-      <a href="#finish">Contact</a>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <!-- HERO / START -->
-  <section id="hero" class="section hero">
-    <div class="bg-parallax" data-speed="0.25"></div>
-    <div class="hero-inner">
-      <h1 class="headline"><span class="beam">Precision</span> in Motion</h1>
-      <p class="sub">A cinematic, scroll-driven journey through UNIDA’s approach to building high-performance web experiences.</p>
-      <button id="start-journey" class="btn btn-red">Start the Journey</button>
-      <div class="dash-hint">Scroll = Gear Shift</div>
-    </div>
-    <div class="red-flash" aria-hidden="true"></div>
-    <div class="smoke smoke-hero" aria-hidden="true"></div>
-  </section>
+  <!-- HERO -->
+  <section id="home" class="section hero">
+    <!-- soft texture bg (optional) -->
+    <div class="hero-bg"></div>
+    <!-- falling petals -->
+    <div id="petals"></div>
 
-  <!-- ORIGIN (Personal + Studio Story) -->
-  <section id="origin" class="section lap lap-origin">
-    <div class="smoke" aria-hidden="true"></div>
-    <div class="container reveal">
-      <h2 class="lap-title">Lap 1 — Origin</h2>
-      <p class="lap-text">
-        Built from obsession and grit. We turn raw ambition into clean systems that look premium and move fast. This is UNIDA’s story—part personal, part studio—designed to prove we can ship under pressure and deliver with precision.
+    <div class="hero-inner">
+      <h1 class="brand-title">U-NEED-A</h1>
+
+      <div id="toggle-wrapper" class="toggle-wrap" aria-live="polite">
+        <span id="toggle-role" class="toggle-role">Developer</span>
+      </div>
+      <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
+
+      <p class="tagline">
+        We craft sleek, pastel-luxury landing pages and websites that make brands feel effortless.
       </p>
 
-      <div class="origin-wrap">
-        <div class="origin-shot"></div>
-        <div class="origin-copy">
-          <h3>From Chaos to Clarity</h3>
-          <p>We cut through noise—designing interfaces that feel inevitable and engineering that just works. Minimalism, speed, and reliability are non-negotiable.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#services">View Services</a>
+        <a class="btn btn-ghost" href="#projects">See Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-shot"></div>
+        <div class="about-copy">
+          <h2 class="heading">Who We Are</h2>
+          <p>
+            UNIDA is a design-driven development studio. We combine quiet elegance with solid engineering to deliver
+            interfaces that feel calm, premium, and fast. No conversion promises—just clean execution that supports
+            your business goals.
+          </p>
           <ul class="bullets">
-            <li>Cyberpunk aesthetic, enterprise discipline</li>
-            <li>Lean stacks, fast deploys, clean handoffs</li>
-            <li>No conversion promises—only elite execution</li>
+            <li>Pastel luxury aesthetic, high legibility</li>
+            <li>Lean stacks, fast GitHub Pages & CI</li>
+            <li>WhatsApp CTAs, simple lead flows, tidy handoffs</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CRAFT (Engineering / Process) -->
-  <section id="craft" class="section lap lap-craft">
-    <div class="smoke" aria-hidden="true"></div>
+  <!-- SERVICES & PACKAGES -->
+  <section id="services" class="section services">
     <div class="container">
-      <h2 class="lap-title">Lap 2 — Craft</h2>
-      <p class="lap-text">Engineering with cinematic clarity. We tune for first-paint, responsiveness, and scroll-smoothness. Performance is a feature.</p>
+      <h2 class="heading center">Services & Packages</h2>
+      <p class="sub center">Clear, simple, premium execution. You choose the scope; we ship with care.</p>
 
-      <div class="cards reveal">
-        <article class="card">
-          <h3>Blueprints</h3>
-          <p>Information architecture, component maps, and UX beats laid out before a line of code ships.</p>
+      <div class="cards">
+        <!-- Starter -->
+        <article class="card neon-border">
+          <div class="price-badge">₹15,000</div>
+          <h3>Starter</h3>
+          <ul class="list">
+            <li>Single landing page</li>
+            <li>Responsive + SEO basics</li>
+            <li>WhatsApp CTA integration</li>
+            <li>Delivery in 3–5 days</li>
+          </ul>
+          <a class="btn btn-primary w100" href="#contact">Get Started</a>
         </article>
-        <article class="card">
-          <h3>Toolchain</h3>
-          <p>GitHub Pages, CI hooks, API-ready scaffolds, and optional headless CMS for scale.</p>
-        </article>
-        <article class="card">
-          <h3>Delivery</h3>
-          <p>Fast iterations, tidy repos, docs. Clean files your future team will thank you for.</p>
-        </article>
-      </div>
 
-      <div class="gauges reveal">
-        <!-- Speedometer -->
-        <div class="gauge speedo">
-          <svg viewBox="0 0 120 60" class="speedo-svg">
-            <path d="M10,60 A50,50 0 0 1 110,60" fill="none" stroke="#222" stroke-width="10" />
-            <path id="speed-arc" d="M10,60 A50,50 0 0 1 110,60" fill="none" stroke="#E50914" stroke-linecap="round" stroke-width="10" stroke-dasharray="157" stroke-dashoffset="157"/>
-          </svg>
-          <div class="gauge-label">
-            <div class="gauge-val"><span id="speed-val">0</span> km/h</div>
-            <div class="gauge-name">Speed</div>
-          </div>
-        </div>
+        <!-- Pro -->
+        <article class="card neon-border">
+          <div class="price-badge">₹25,000</div>
+          <h3>Pro</h3>
+          <ul class="list">
+            <li>Multi-section website</li>
+            <li>Speed tuning + analytics</li>
+            <li>Lead capture form flow</li>
+            <li>Delivery in 5–8 days</li>
+          </ul>
+          <a class="btn btn-primary w100" href="#contact">Book Pro</a>
+        </article>
 
-        <!-- RPM Bar -->
-        <div class="gauge rpm">
-          <div class="rpm-bar">
-            <div id="rpm-fill" class="rpm-fill"></div>
-          </div>
-          <div class="gauge-label">
-            <div class="gauge-val"><span id="rpm-val">0</span> RPM</div>
-            <div class="gauge-name">Engine</div>
-          </div>
-        </div>
+        <!-- Premium -->
+        <article class="card neon-border">
+          <div class="price-badge">₹40,000+</div>
+          <h3>Premium</h3>
+          <ul class="list">
+            <li>Custom components & sections</li>
+            <li>Micro-interactions & polish</li>
+            <li>Light CMS / API-ready scaffold</li>
+            <li>Delivery: scoped per brief</li>
+          </ul>
+          <a class="btn btn-primary w100" href="#contact">Discuss Scope</a>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- SHOWCASE (Your demos) -->
-  <section id="showcase" class="section lap lap-showcase">
-    <div class="smoke" aria-hidden="true"></div>
+  <!-- PROJECTS -->
+  <section id="projects" class="section projects">
     <div class="container">
-      <h2 class="lap-title">Lap 3 — Showcase</h2>
-      <p class="lap-text">Three flagship builds. Click to view live demos.</p>
+      <h2 class="heading center">Our Projects</h2>
+      <p class="sub center">A few live demos. Each opens in a new tab.</p>
 
-      <div class="models reveal">
-        <a class="model-card" target="_blank"
+      <div class="grid">
+        <a class="project-card pastel-border" target="_blank"
            href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5Mlf5S&f=1&path=%2F">
-          <div class="model-shot model-1"></div>
-          <div class="model-meta">
-            <div class="model-name">Astral Heights</div>
-            <div class="model-desc">Luxury Real Estate Landing</div>
-          </div>
+          <img src="assets/astral.jpg" alt="Astral Heights" />
+          <h3>Astral Heights</h3>
+          <p>Luxury real-estate landing page</p>
         </a>
 
-        <a class="model-card" target="_blank" href="https://preview--cinematic-finance-forge.lovable.app/">
-          <div class="model-shot model-2"></div>
-          <div class="model-meta">
-            <div class="model-name">NEXUS</div>
-            <div class="model-desc">E-Commerce Experience</div>
-          </div>
+        <a class="project-card pastel-border" target="_blank"
+           href="https://preview--cinematic-finance-forge.lovable.app/">
+          <img src="assets/nexus.jpg" alt="NEXUS E-commerce" />
+          <h3>NEXUS</h3>
+          <p>E-commerce experience</p>
         </a>
 
-        <a class="model-card" target="_blank" href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
-          <div class="model-shot model-3"></div>
-          <div class="model-meta">
-            <div class="model-name">NEURALFRAME</div>
-            <div class="model-desc">AI Cognition System</div>
-          </div>
+        <a class="project-card pastel-border" target="_blank"
+           href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
+          <img src="assets/neural.jpg" alt="NEURALFRAME" />
+          <h3>NEURALFRAME</h3>
+          <p>AI cognition showcase</p>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- FINISH / CTA -->
-  <section id="finish" class="section finish">
-    <div class="smoke" aria-hidden="true"></div>
-    <div class="container finish-inner">
-      <div class="finish-logo">UNIDA</div>
-      <div class="tag">Precision in Motion.</div>
-      <a class="btn btn-red btn-fat" href="https://wa.me/919832081719" target="_blank">Book a Strategy Call</a>
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <div class="container contact-inner">
+      <h2 class="heading center">Let’s Build Something Calm & Powerful</h2>
+      <p class="sub center">Fastest: WhatsApp • We reply within 2 business hours.</p>
+      <div class="contact-cta">
+        <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
+      </div>
     </div>
   </section>
 
@@ -159,18 +166,34 @@
   <footer class="footer">
     <div class="footer-left">
       <h3>UNIDA</h3>
-      <p>We build high-performance web systems with cinematic clarity.</p>
+      <p>Pastel-luxury web experiences with quiet precision.</p>
       <div class="footer-contact">
         <span>reply.uneeda@protonmail.com</span>
         <span>+91 9832081719</span>
       </div>
     </div>
     <div class="footer-right">
-      <a href="#" class="footer-icon">IG</a>
-      <a href="mailto:reply.uneeda@protonmail.com" class="footer-icon">✉</a>
-      <a href="https://wa.me/919832081719" class="footer-icon">☎</a>
-      <a href="#" class="footer-icon">Fiverr</a>
-      <a href="#" class="footer-icon">Upwork</a>
+      <a href="#" class="footer-icon" aria-label="Instagram">
+        <svg width="26" height="26" stroke="currentColor" stroke-width="1.6" fill="none" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17" cy="7" r="1.2"></circle>
+        </svg>
+      </a>
+      <a href="mailto:reply.uneeda@protonmail.com" class="footer-icon" aria-label="Gmail">
+        <svg width="28" height="22" stroke="currentColor" stroke-width="1.6" fill="none" viewBox="0 0 24 24">
+          <path d="M2 6l10 7 10-7"></path>
+          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+        </svg>
+      </a>
+      <a href="https://wa.me/919832081719" target="_blank" class="footer-icon" aria-label="WhatsApp">
+        <svg width="27" height="27" stroke="currentColor" stroke-width="1.6" fill="none" viewBox="0 0 24 24">
+          <path d="M3 21l1.2-4a9 9 0 1 1 3.8 2.8z"></path>
+          <path d="M9 10c0 2 2 5 5 5l1-.5a1 1 0 0 0 .3-1.5l-1.3-1.2a1 1 0 0 0-.9-.2l-.9.3"></path>
+        </svg>
+      </a>
+      <a href="#" class="footer-icon" aria-label="Fiverr">Fi</a>
+      <a href="#" class="footer-icon" aria-label="Upwork">Up</a>
     </div>
   </footer>
   <div class="footer-bottom">© 2025 UNIDA. All rights reserved. | Terms & Conditions apply.</div>

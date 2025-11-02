@@ -19,6 +19,11 @@ body {
   overflow: hidden;
 }
 
+.scene {
+  overflow-y: auto;
+}
+
+
 /* ------------------------------------------------------
    NAVIGATION
 ------------------------------------------------------ */
@@ -47,26 +52,6 @@ body {
   opacity: 1;
 }
 
-/* ------------------------------------------------------
-   GLOBAL SECTION (CINEMATIC SLIDE)
------------------------------------------------------- */
-section {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 6%;
-  opacity: 0;
-  transform: translateY(80px) scale(.98);
-  transition: opacity .9s ease, transform .9s cubic-bezier(0.16,1,0.3,1);
-}
-
 /* when section becomes visible */
 section.active {
   opacity: 1;
@@ -76,10 +61,14 @@ section.active {
 /* ------------------------------------------------------
    HERO SECTION
 ------------------------------------------------------ */
-.hero {
+#scene-hero {
   background: url("assets/cherryblossom1.jpg") center/cover no-repeat;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .brand-title {
   font-family: "Playfair Display", serif;

@@ -1,46 +1,61 @@
-// ===== SIMPLE ROLE TOGGLE (fade only) =====
-const role = document.getElementById("toggle-role");
-const comingSoon = document.getElementById("coming-soon");
+/* ============================
+   1) Elegant Developer ⇄ Designer toggle
+============================ */
+const roleEl = document.getElementById("toggle-role");
 const roles = ["Developer", "Designer"];
 let idx = 0;
 
-function setRole() {
+setInterval(() => {
   idx = (idx + 1) % roles.length;
-  role.style.opacity = 0;
+  roleEl.style.opacity = 0;
+
   setTimeout(() => {
-    role.textContent = roles[idx];
-    role.style.opacity = 1;
-    // show warning only for Designer
-    comingSoon.style.opacity = roles[idx] === "Designer" ? 0.9 : 0;
-  }, 200);
-}
-setInterval(setRole, 2700);
-setRole();
+    roleEl.textContent = roles[idx];
+    roleEl.style.opacity = 1;
+  }, 250);
+}, 2600);
 
-// ===== FALLING PETALS (elegant speed) =====
-const petalsRoot = document.getElementById("petals");
-function createPetal(){
-  const s = document.createElement("span");
-  s.className = "petal";
-  const size = 8 + Math.random()*10;          // 8–18px
-  const dur  = 12 + Math.random()*7;          // 12–19s
-  s.style.left = Math.random()*100 + "vw";
-  s.style.width = size + "px";
-  s.style.height = size + "px";
-  s.style.animationDuration = dur + "s";
-  petalsRoot.appendChild(s);
-  setTimeout(()=>s.remove(), dur*1000);
-}
-setInterval(createPetal, 650);
 
-// ===== SCENE REVEAL ON SCROLL =====
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-      io.unobserve(e.target);
+/* ============================
+   2) Falling Cherry-Blossom Petals Animation
+============================ */
+function createPetal() {
+  const petal = document.createElement("div");
+  petal.classList.add("petal");
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = Math.random() * 6 + 5 + "s";
+  document.getElementById("petals").appendChild(petal);
+
+  setTimeout(() => petal.remove(), 11000);
+}
+setInterval(createPetal, 450);
+
+
+/* ============================
+   3) Cinematic fade-in reveal
+============================ */
+const revealEls = document.querySelectorAll(".fade, .fade-element, section, .card");
+
+function revealOnScroll() {
+  const trigger = window.innerHeight * 0.82;
+
+  revealEls.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < trigger) el.classList.add("visible");
+  });
+}
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll(); // run on load
+
+
+/* ============================
+   4) Smooth navigation scroll
+============================ */
+document.querySelectorAll("[data-scroll]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = document.querySelector(btn.dataset.scroll);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
-},{threshold:.15});
-
-document.querySelectorAll('.fade-element').forEach(el=>io.observe(el));
+});

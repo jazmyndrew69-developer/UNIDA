@@ -3,175 +3,150 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Creation — Jazmyn's Portfolio</title>
+  <title>Jazmyn — Portfolio</title>
 
-  <!-- Typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+   <svg width="0" height="0">
+  <defs>
+    <linearGradient id="footer-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop stop-color="#FFC5D9" offset="0%"/>
+      <stop stop-color="#C9A7EB" offset="100%"/>
+    </linearGradient>
+  </defs>
+</svg>
 
-  <!-- Fixed background + petals -->
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div id="petals" aria-hidden="true"></div>
-
-  <!-- NAV -->
+  <!-- HERO -->
   <header class="nav">
-    <div class="brand">Creation</div>
+    <div class="brand">Jazmyn</div>
     <nav>
-      <a class="nav-link" href="#scene-hero">Home</a>
-      <a class="nav-link" href="#scene-about">About</a>
-      <a class="nav-link" href="#scene-services">Services</a>
-      <a class="nav-link" href="#scene-projects">Projects</a>
-      <a class="nav-link" href="#scene-contact">Contact</a>
+      <button class="nav-link" data-target="about">About</button>
+      <button class="nav-link" data-target="services">Services</button>
+      <button class="nav-link" data-target="projects">Projects</button>
+      <button class="nav-link" data-target="contact">Contact</button>
     </nav>
   </header>
 
-  <!-- SCENE: HERO -->
-  <section id="scene-hero" class="scene scene-hero">
-    <div class="hero-content fade-element">
-      <h1 class="brand-title">Hey! It's Jazmyn's Portfolio.</h1>
+  <section id="hero" class="section hero">
+    <div id="petals"></div>
 
-      <div class="toggle-wrap" aria-live="polite">
-        <span id="toggle-role" class="toggle-role">Developer</span>
-      </div>
-      <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
+    <h1 class="brand-title">Jazmyn’s Portfolio</h1>
 
-      <p class="tagline">Elegance. Engineered. Websites that feel expensive — built with calm precision.</p>
+    <div id="toggle-wrapper" class="toggle-wrap">
+      <span id="toggle-role" class="toggle-role">Developer</span>
+    </div>
 
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="#scene-services">View Services</a>
-        <a class="btn btn-ghost" href="#scene-projects">See Projects</a>
+    <p id="coming-soon" class="coming-soon">Designer — coming soon</p>
+
+    <p class="tagline">
+      Elegance engineered into digital experiences that feel expensive.
+    </p>
+
+    <div class="hero-ctas">
+      <button class="btn btn-primary" data-target="services">View Services</button>
+      <button class="btn btn-ghost" data-target="projects">See Projects</button>
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about" class="section fade">
+    <div class="about-wrapper">
+      <div class="about-img"></div>
+
+      <div class="about-text">
+        <h2>Who I Am</h2>
+        <p>
+          I create cinematic, elegant, high-end digital experiences.  
+          Design is not just visual. It’s emotional.
+        </p>
+
+        <ul>
+          <li>Luxury aesthetics + minimalist execution</li>
+          <li>Landing pages, portfolio sites, branded web identity</li>
+          <li>Fast delivery with precision</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- SCENE: ABOUT -->
-  <section id="scene-about" class="scene scene-about">
-    <div class="container">
-      <div class="split fade-element">
-        <div class="split-media">
-          <img src="assets/about.jpg" alt="UNIDA studio ambience" class="frame-img"/>
-        </div>
-        <div class="split-copy">
-          <h2 class="heading">Who We Are</h2>
-          <p>
-            Hello! I am Jazmyn and this is my design-driven development studio. I blend quiet, aesthetic luxury with engineering clarity to deliver
-            interfaces that are fast, legible, and premium. No conversion promises — just clean execution that supports your goals.
-          </p>
-          <ul class="bullets">
-            <li>Luxury aesthetic, high legibility</li>
-            <li>Landing pages, full websites & CI</li>
-            <li>WhatsApp CTAs, simple lead flows, tidy handoffs</li>
-          </ul>
-        </div>
-      </div>
+
+  <!-- SERVICES -->
+  <section id="services" class="section fade">
+    <h2>Services & Packages</h2>
+    <div class="cards">
+      <article class="card pastel">
+        <h3>Starter</h3>
+        <p>₹15,000</p>
+        <ul>
+          <li>Landing page</li>
+          <li>WhatsApp CTA</li>
+          <li>Delivery: 3–5 days</li>
+        </ul>
+      </article>
+
+      <article class="card pastel">
+        <h3>Pro</h3>
+        <p>₹25,000</p>
+        <ul>
+          <li>Website 3-5 sections</li>
+          <li>Lead Capture</li>
+          <li>Delivery: 5–8 days</li>
+        </ul>
+      </article>
+
+      <article class="card pastel">
+        <h3>Premium</h3>
+        <p>₹40,000+</p>
+        <ul>
+          <li>Custom components</li>
+          <li>Advanced animations</li>
+          <li>Delivery: scoped</li>
+        </ul>
+      </article>
     </div>
   </section>
 
-  <!-- SCENE: SERVICES -->
-  <section id="scene-services" class="scene scene-services">
-    <div class="container">
-      <div class="fade-element">
-        <h2 class="heading center">Services & Pricing</h2>
-        <p class="sub center">Pastel borders, clear scope, premium craft.</p>
 
-        <div class="cards">
-          <article class="card glow-border">
-            <div class="price-badge">₹15,000</div>
-            <h3>Starter</h3>
-            <ul class="list">
-              <li>Single landing page</li>
-              <li>Responsive + SEO basics</li>
-              <li>WhatsApp CTA integration</li>
-              <li>Delivery in 3–5 days</li>
-            </ul>
-            <a class="btn btn-primary w100" href="#scene-contact">Get Started</a>
-          </article>
+  <!-- PROJECTS -->
+  <section id="projects" class="section fade">
+    <h2>Featured Projects</h2>
 
-          <article class="card glow-border">
-            <div class="price-badge">₹25,000</div>
-            <h3>Pro</h3>
-            <ul class="list">
-              <li>Multi-section website</li>
-              <li>Speed tuning + analytics</li>
-              <li>Lead capture form flow</li>
-              <li>Delivery in 5–8 days</li>
-            </ul>
-            <a class="btn btn-primary w100" href="#scene-contact">Book Pro</a>
-          </article>
+    <div class="cards projects">
+      <a class="card pastel" href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky" target="_blank">
+        <h3>Astral Heights</h3>
+        <p>Luxury Real Estate Landing Page</p>
+      </a>
 
-          <article class="card glow-border">
-            <div class="price-badge">₹40,000+</div>
-            <h3>Premium</h3>
-            <ul class="list">
-              <li>Full Stack Websites</li>
-              <li>Custom components & sections</li>
-              <li>Micro-interactions & polish</li>
-              <li>Light CMS / API-ready scaffold</li>
-              <li>Delivery: scoped per brief</li>
-            </ul>
-            <a class="btn btn-primary w100" href="#scene-contact">Discuss Scope</a>
-          </article>
-        </div>
-      </div>
+      <a class="card pastel" href="https://preview--cinematic-finance-forge.lovable.app/" target="_blank">
+        <h3>NEXUS</h3>
+        <p>E-commerce Experience</p>
+      </a>
+
+      <a class="card pastel" href="https://armizor-neural-nexus-horizon.static.hf.space/index.html" target="_blank">
+        <h3>NEURALFRAME</h3>
+        <p>AI Cognition Showcase</p>
+      </a>
     </div>
   </section>
 
-  <!-- SCENE: PROJECTS -->
-  <section id="scene-projects" class="scene scene-projects">
-    <div class="container">
-      <div class="fade-element">
-        <h2 class="heading center">Projects</h2>
-        <p class="sub center">Soft shadows, minimal cards. Opens in new tab.</p>
 
-        <div class="grid">
-          <a class="project-card glow-border subtle" target="_blank"
-             href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5S&f=1&path=%2F">
-            <img src="assets/house.jpg" alt="Astral Heights — Luxury Apartments"/>
-            <div class="p-meta">
-              <h3>Astral Heights</h3>
-              <p>Luxury real-estate landing page</p>
-            </div>
-          </a>
+  <!-- CONTACT -->
+  <section id="contact" class="section fade">
+    <h2>Let’s Build Something Beautiful</h2>
+    <p>Fastest: WhatsApp • Response time: 2 hours</p>
 
-          <a class="project-card glow-border subtle" target="_blank"
-             href="https://preview--cinematic-finance-forge.lovable.app/">
-            <img src="assets/ecom.jpg" alt="NEXUS — E-commerce"/>
-            <div class="p-meta">
-              <h3>NEXUS</h3>
-              <p>E-commerce showcase</p>
-            </div>
-          </a>
-
-          <a class="project-card glow-border subtle" target="_blank"
-             href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
-            <img src="assets/ai-eco.jpg" alt="NEURALFRAME — AI Cognition"/>
-            <div class="p-meta">
-              <h3>NEURALFRAME</h3>
-              <p>AI cognition system</p>
-            </div>
-          </a>
-        </div>
-      </div>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://wa.me/919832081719" target="_blank">WhatsApp</a>
+      <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
     </div>
   </section>
 
-  <!-- SCENE: CONTACT -->
-  <section id="scene-contact" class="scene scene-contact">
-    <div class="container">
-      <div class="fade-element">
-        <h2 class="heading center">Let’s Build Something Calm & Powerful</h2>
-        <p class="sub center">Fastest: WhatsApp • We reply within 2 business hours.</p>
-        <div class="contact-cta">
-          <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
-          <a class="btn btn-ghost" href="mailto:jazmyndrew69@gmail">Email</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <footer class="footer">
     <div class="footer-left">
       <h3>Creation</h3>
@@ -221,9 +196,14 @@
       </a>
     </div>
   </footer>
+  
+    
 
-  <div class="footer-bottom">© 2025 Creation — All rights reserved.</div>
+  <div class="footer-bottom">
+    © 2025 Creation. All rights reserved.
+  </div>
 
-  <script src="script.js"></script>
+
+<script src="script.js"></script>
 </body>
 </html>

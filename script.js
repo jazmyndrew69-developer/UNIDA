@@ -1,37 +1,49 @@
-// ROLE TOGGLE — now slower and clean
+// =========================
+// ROLE TOGGLE (glitch + smooth switching)
+// =========================
+
 const role = document.getElementById("toggle-role");
 const comingSoon = document.getElementById("coming-soon");
-const roles = ["Developer", "Designer"];
-let i = 0;
+
+let roles = ["Developer", "Designer"];
+let index = 0;
 
 function updateRole() {
-  i = (i + 1) % roles.length;
-  role.textContent = roles[i];
+  index = (index + 1) % roles.length;
 
-  if (roles[i] === "Designer") {
-    comingSoon.style.opacity = "1";
-  } else {
-    comingSoon.style.opacity = "0";
-  }
+  // restart glitch animation
+  role.classList.remove("glitch-active");
+  void role.offsetWidth;
+  role.textContent = roles[index];
+  role.classList.add("glitch-active");
 
-  role.classList.add("flicker");
-  setTimeout(() => role.classList.remove("flicker"), 600);
+  // fade "coming soon"
+  comingSoon.style.opacity = roles[index] === "Designer" ? "0.7" : "0";
 }
 
-setInterval(updateRole, 2800);
+// slower, less spammy switch
+setInterval(updateRole, 2600);
+updateRole();
 
-// SCENE SYSTEM
+// =========================
+// OPEN / CLOSE SCENES
+// =========================
+
 document.querySelectorAll("[data-scene]").forEach(btn => {
   btn.addEventListener("click", () => {
-    const target = btn.dataset.scene;
-    document.getElementById(`scene-${target}`).hidden = false;
+    const target = document.getElementById(`scene-${btn.dataset.scene}`);
     document.getElementById("overlay").classList.add("active");
+    target.hidden = false;
+    target.classList.add("open");
   });
 });
 
-document.querySelectorAll("[data-close]").forEach(btn => {
+document.querySelectorAll("[data-close]").forEach(btn =>
   btn.addEventListener("click", () => {
-    btn.closest(".scene").hidden = true;
+    const scene = btn.closest(".scene");
+    scene.classList.remove("open");
+    scene.hidden = true;
     document.getElementById("overlay").classList.remove("active");
-  });
-});
+  })
+);
+

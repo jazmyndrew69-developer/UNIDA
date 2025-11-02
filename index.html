@@ -3,149 +3,147 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Jazmyn’s Portfolio — Elegance Engineered</title>
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <title>Jazmyn’s Portfolio</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- GLOBAL MIST BACKGROUND -->
-  <video id="mist-bg" autoplay muted loop playsinline>
-    <source src="assets/fog.mp4" type="video/mp4">
-  </video>
-
   <div class="scene-container">
 
-    <!-- NAV -->
-    <header class="nav">
-      <div class="brand">Portfolio</div>
-      <nav>
-        <button class="nav-link" data-scene="about">About</button>
-        <button class="nav-link" data-scene="services">Services</button>
-        <button class="nav-link" data-scene="projects">Projects</button>
-        <button class="nav-link" data-scene="contact">Contact</button>
-      </nav>
-    </header>
+  <header class="nav">
+    <div class="brand">Jazmyn</div>
+    <nav>
+      <button class="nav-link" data-scene="about">About</button>
+      <button class="nav-link" data-scene="services">Services</button>
+      <button class="nav-link" data-scene="projects">Projects</button>
+      <button class="nav-link" data-scene="contact">Contact</button>
+    </nav>
+  </header>
 
-    <!-- HERO -->
-    <section id="home" class="hero scene--home">
-      <div class="hero-bg"></div>
-      <div id="petals"></div>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div id="petals"></div>
 
-      <div class="hero-inner">
-        <h1 class="brand-title">Jazmyn’s Portfolio</h1>
+    <div class="hero-inner">
+      <h1 class="brand-title">Jazmyn’s Portfolio</h1>
 
-        <div id="toggle-wrapper" class="toggle-wrap">
-          <span id="toggle-role" class="toggle-role">Developer</span>
-        </div>
+      <div id="toggle-wrapper" class="toggle-wrap">
+        <span id="toggle-role" class="toggle-role">Developer</span>
+      </div>
+      <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
 
-        <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
+      <p class="tagline">Elegance, engineered into digital experiences that feel expensive.</p>
 
-        <p class="tagline">Elegance, engineered into digital experiences that feel expensive.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" data-scene="services">View Services</button>
+        <button class="btn btn-ghost" data-scene="projects">See Projects</button>
+      </div>
 
-        <div class="hero-ctas">
-          <button class="btn btn-primary" data-scene="services">View Services</button>
-          <button class="btn btn-ghost" data-scene="projects">See Projects</button>
+      <div class="hint">Use the menu to open sections.</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="scene-about" class="scene" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close>✕</button>
+
+      <div class="panel-grid">
+        <div class="panel-shot shot-about"></div>
+        <div class="panel-copy">
+          <h2 class="heading">Who We Are</h2>
+          <p>
+            Quiet luxury meets precision. Thoughtful design and strong engineering.
+          </p>
+          <ul class="bullets">
+            <li>Premium design + development</li>
+            <li>Landing pages, full websites</li>
+            <li>Clean handoff, WhatsApp CTA</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- OVERLAY (when panels open) -->
-    <div id="overlay" class="overlay"></div>
+  <!-- SERVICES -->
+  <section id="scene-services" class="scene" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close>✕</button>
+      <h2 class="heading center">Services & Packages</h2>
 
-    <!-- ABOUT -->
-    <section id="scene-about" class="scene" hidden>
-      <div class="scene-panel">
-        <button class="scene-close" data-close>✕</button>
+      <div class="cards">
+        <article class="card neon-border">
+          <div class="price-badge">₹15,000</div>
+          <h3>Starter</h3>
+          <ul class="list">
+            <li>Single landing page</li>
+            <li>WhatsApp CTA</li>
+            <li>Delivery 3–5 days</li>
+          </ul>
+        </article>
 
-        <h2 class="heading center">Who We Are</h2>
-        <p class="sub center">Calm. premium. precise execution.</p>
+        <article class="card neon-border">
+          <div class="price-badge">₹25,000</div>
+          <h3>Pro</h3>
+          <ul class="list">
+            <li>Multi-section site</li>
+            <li>Analytics</li>
+            <li>Delivery 5–8 days</li>
+          </ul>
+        </article>
 
-        <div class="panel-grid">
-          <div class="panel-shot shot-about"></div>
-          <div>
-            <ul class="bullets">
-              <li>Luxury aesthetic & high legibility</li>
-              <li>Landing pages & full websites</li>
-              <li>WhatsApp CTA & handoff-ready builds</li>
-            </ul>
-          </div>
-        </div>
+        <article class="card neon-border">
+          <div class="price-badge">₹40,000+</div>
+          <h3>Premium</h3>
+          <ul class="list">
+            <li>Custom components</li>
+            <li>Microinteractions</li>
+            <li>Polish + CMS ready</li>
+          </ul>
+        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SERVICES -->
-    <section id="scene-services" class="scene" hidden>
-      <div class="scene-panel">
-        <button class="scene-close" data-close>✕</button>
-        <h2 class="heading center">Services & Packages</h2>
+  <!-- PROJECTS -->
+  <section id="scene-projects" class="scene" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close>✕</button>
 
-        <div class="cards">
-          <article class="card neon-border">
-            <h3>Starter</h3>
-            <p>₹15,000</p>
-          </article>
-
-          <article class="card neon-border">
-            <h3>Pro</h3>
-            <p>₹25,000</p>
-          </article>
-
-          <article class="card neon-border">
-            <h3>Premium</h3>
-            <p>₹40,000+</p>
-          </article>
-        </div>
+      <h2 class="heading center">Projects</h2>
+      <div class="grid">
+        <a class="project-card pastel-border" href="#" target="_blank">
+          <img src="assets/house.jpg" />
+          <h3>Real Estate</h3>
+        </a>
       </div>
-    </section>
 
-    <!-- PROJECTS -->
-    <section id="scene-projects" class="scene" hidden>
-      <div class="scene-panel">
-        <button class="scene-close" data-close>✕</button>
-        <h2 class="heading center">Projects</h2>
+    </div>
+  </section>
 
-        <div class="grid">
-          <a class="project-card pastel-border" target="_blank"
-             href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5Mlf5S&f=1&path=%2F">
-            Astral Heights — Real Estate
-          </a>
+  <!-- CONTACT -->
+  <section id="scene-contact" class="scene" hidden>
+    <div class="scene-panel">
+      <button class="scene-close" data-close>✕</button>
+      <h2 class="heading center">Contact</h2>
+      <p>Email: <a href="mailto:reply.uneeda@protonmail.com">reply.uneeda@protonmail.com</a></p>
+      <p>WhatsApp: +91 9832081719</p>
+    </div>
+  </section>
 
-          <a class="project-card pastel-border" target="_blank"
-             href="https://preview--cinematic-finance-forge.lovable.app/">
-            NEXUS — E-Commerce Website
-          </a>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <h3>Creation</h3>
+      <p>Quiet elegance in digital form.</p>
+    </div>
+  </footer>
+  <div class="footer-bottom">© 2025 Creation. All rights reserved.</div>
 
-          <a class="project-card pastel-border" target="_blank"
-             href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
-            NEURALFRAME — AI System Demo
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="scene-contact" class="scene" hidden>
-      <div class="scene-panel">
-        <button class="scene-close" data-close>✕</button>
-        <h2 class="heading center">Let's build something calm & powerful</h2>
-        <div class="contact-cta">
-          <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
-          <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
-        </div>
-      </div>
-    </section>
-
-  </div> <!-- end scene-container -->
-
-  <footer class="footer-bottom">© 2025 Creation. All rights reserved.</footer>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

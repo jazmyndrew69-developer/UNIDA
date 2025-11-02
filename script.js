@@ -1,4 +1,4 @@
-// ===== SIMPLE ROLE TOGGLE (no glitch) =====
+// ===== SIMPLE ROLE TOGGLE (fade only) =====
 const role = document.getElementById("toggle-role");
 const comingSoon = document.getElementById("coming-soon");
 const roles = ["Developer", "Designer"];
@@ -10,13 +10,14 @@ function setRole() {
   setTimeout(() => {
     role.textContent = roles[idx];
     role.style.opacity = 1;
-    comingSoon.style.opacity = roles[idx] === "Designer" ? 0.85 : 0;
-  }, 220);
+    // show warning only for Designer
+    comingSoon.style.opacity = roles[idx] === "Designer" ? 0.9 : 0;
+  }, 200);
 }
-setInterval(setRole, 2600);
+setInterval(setRole, 2700);
 setRole();
 
-// ===== PETALS (soft, elegant) =====
+// ===== FALLING PETALS (elegant speed) =====
 const petalsRoot = document.getElementById("petals");
 function createPetal(){
   const s = document.createElement("span");
@@ -32,26 +33,14 @@ function createPetal(){
 }
 setInterval(createPetal, 650);
 
-// ===== Smooth in-page scroll =====
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    const id = a.getAttribute('href');
-    if(!id || id === "#") return;
-    const target = document.querySelector(id);
-    if(target){
-      e.preventDefault();
-      target.scrollIntoView({behavior:'smooth',block:'start'});
-    }
-  });
-});
-
-// ===== Reveal on scroll (cinematic) =====
+// ===== SCENE REVEAL ON SCROLL =====
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      e.target.classList.add('show');
+      e.target.classList.add('visible');
       io.unobserve(e.target);
     }
   });
 },{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+document.querySelectorAll('.fade-element').forEach(el=>io.observe(el));

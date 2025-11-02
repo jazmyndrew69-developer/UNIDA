@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Jazmyn's Luxury Portfolio</title>
+  <title>Creation — Jazmyn's Portfolio</title>
 
   <!-- Typography -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
@@ -11,50 +11,52 @@
 </head>
 <body>
 
-  <!-- BACKGROUND + PETALS -->
-  <div class="hero-bg"></div>
-  <div id="petals"></div>
+  <!-- Fixed background + petals -->
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div id="petals" aria-hidden="true"></div>
 
   <!-- NAV -->
   <header class="nav">
     <div class="brand">Creation</div>
     <nav>
-      <a class="nav-link" href="#home">Home</a>
-      <a class="nav-link" href="#about">About</a>
-      <a class="nav-link" href="#services">Services</a>
-      <a class="nav-link" href="#projects">Projects</a>
-      <a class="nav-link" href="#contact">Contact</a>
+      <a class="nav-link" href="#scene-hero">Home</a>
+      <a class="nav-link" href="#scene-about">About</a>
+      <a class="nav-link" href="#scene-services">Services</a>
+      <a class="nav-link" href="#scene-projects">Projects</a>
+      <a class="nav-link" href="#scene-contact">Contact</a>
     </nav>
   </header>
 
-  <!-- HERO -->
-  <section id="home" class="hero section">
-    <div class="hero-inner reveal">
-      <h1 class="brand-title">Portfolio <span id="toggle-role" class="toggle-role">Developer</span></h1>
+  <!-- SCENE: HERO -->
+  <section id="scene-hero" class="scene scene-hero">
+    <div class="hero-content fade-element">
+      <h1 class="brand-title">Hey! It's Jazmyn's Portfolio.</h1>
+
+      <div class="toggle-wrap" aria-live="polite">
+        <span id="toggle-role" class="toggle-role">Developer</span>
+      </div>
       <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
 
-      <p class="tagline">
-        Elegance. Engineered. Websites that feel expensive — built with calm precision.
-      </p>
+      <p class="tagline">Elegance. Engineered. Websites that feel expensive — built with calm precision.</p>
 
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#services">View Services</a>
-        <a class="btn btn-ghost" href="#projects">See Projects</a>
+        <a class="btn btn-primary" href="#scene-services">View Services</a>
+        <a class="btn btn-ghost" href="#scene-projects">See Projects</a>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="section">
-    <div class="container reveal">
-      <div class="split">
+  <!-- SCENE: ABOUT -->
+  <section id="scene-about" class="scene scene-about">
+    <div class="container">
+      <div class="split fade-element">
         <div class="split-media">
-          <img src="assets/about.jpg" alt="Studio" class="frame-img"/>
+          <img src="assets/about.jpg" alt="UNIDA studio ambience" class="frame-img"/>
         </div>
         <div class="split-copy">
           <h2 class="heading">Who We Are</h2>
           <p>
-            Hello! I am Jazmyn and it's my design-driven development studio. We blend quiet, aesthetic luxury with solid engineering to deliver
+            Hello! I am Jazmyn and this is my design-driven development studio. I blend quiet, aesthetic luxury with engineering clarity to deliver
             interfaces that are fast, legible, and premium. No conversion promises — just clean execution that supports your goals.
           </p>
           <ul class="bullets">
@@ -67,97 +69,104 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="section">
-    <div class="container reveal">
-      <h2 class="heading center">Services & Pricing</h2>
-      <p class="sub center">Pastel borders, clear scope, premium craft.</p>
+  <!-- SCENE: SERVICES -->
+  <section id="scene-services" class="scene scene-services">
+    <div class="container">
+      <div class="fade-element">
+        <h2 class="heading center">Services & Pricing</h2>
+        <p class="sub center">Pastel borders, clear scope, premium craft.</p>
 
-      <div class="cards">
-        <article class="card glow-border">
-          <div class="price-badge">₹15,000</div>
-          <h3>Starter</h3>
-          <ul class="list">
-            <li>Single landing page</li>
-            <li>Responsive + SEO basics</li>
-            <li>WhatsApp CTA integration</li>
-            <li>Delivery in 3–5 days</li>
-          </ul>
-          <a class="btn btn-primary w100" href="#contact">Get Started</a>
-        </article>
+        <div class="cards">
+          <article class="card glow-border">
+            <div class="price-badge">₹15,000</div>
+            <h3>Starter</h3>
+            <ul class="list">
+              <li>Single landing page</li>
+              <li>Responsive + SEO basics</li>
+              <li>WhatsApp CTA integration</li>
+              <li>Delivery in 3–5 days</li>
+            </ul>
+            <a class="btn btn-primary w100" href="#scene-contact">Get Started</a>
+          </article>
 
-        <article class="card glow-border">
-          <div class="price-badge">₹25,000</div>
-          <h3>Pro</h3>
-          <ul class="list">
-            <li>Multi-section website</li>
-            <li>Speed tuning + analytics</li>
-            <li>Lead capture form flow</li>
-            <li>Delivery in 5–8 days</li>
-          </ul>
-          <a class="btn btn-primary w100" href="#contact">Book Pro</a>
-        </article>
+          <article class="card glow-border">
+            <div class="price-badge">₹25,000</div>
+            <h3>Pro</h3>
+            <ul class="list">
+              <li>Multi-section website</li>
+              <li>Speed tuning + analytics</li>
+              <li>Lead capture form flow</li>
+              <li>Delivery in 5–8 days</li>
+            </ul>
+            <a class="btn btn-primary w100" href="#scene-contact">Book Pro</a>
+          </article>
 
-        <article class="card glow-border">
-          <div class="price-badge">₹40,000+</div>
-          <h3>Premium</h3>
-          <ul class="list">
-            <li>Custom components & sections</li>
-            <li>Micro-interactions & polish</li>
-            <li>Light CMS / API-ready scaffold</li>
-            <li>Delivery: scoped per brief</li>
-          </ul>
-          <a class="btn btn-primary w100" href="#contact">Discuss Scope</a>
-        </article>
+          <article class="card glow-border">
+            <div class="price-badge">₹40,000+</div>
+            <h3>Premium</h3>
+            <ul class="list">
+              <li>Full Stack Websites</li>
+              <li>Custom components & sections</li>
+              <li>Micro-interactions & polish</li>
+              <li>Light CMS / API-ready scaffold</li>
+              <li>Delivery: scoped per brief</li>
+            </ul>
+            <a class="btn btn-primary w100" href="#scene-contact">Discuss Scope</a>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section">
-    <div class="container reveal">
-      <h2 class="heading center">Projects</h2>
-      <p class="sub center">Soft shadows, minimal cards. Opens in new tab.</p>
+  <!-- SCENE: PROJECTS -->
+  <section id="scene-projects" class="scene scene-projects">
+    <div class="container">
+      <div class="fade-element">
+        <h2 class="heading center">Projects</h2>
+        <p class="sub center">Soft shadows, minimal cards. Opens in new tab.</p>
 
-      <div class="grid">
-        <a class="project-card glow-border subtle" target="_blank"
-           href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5S&f=1&path=%2F">
-          <img src="assets/house.jpg" alt="Astral Heights"/>
-          <div class="p-meta">
-            <h3>Astral Heights</h3>
-            <p>Luxury real-estate landing page</p>
-          </div>
-        </a>
+        <div class="grid">
+          <a class="project-card glow-border subtle" target="_blank"
+             href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5S&f=1&path=%2F">
+            <img src="assets/house.jpg" alt="Astral Heights — Luxury Apartments"/>
+            <div class="p-meta">
+              <h3>Astral Heights</h3>
+              <p>Luxury real-estate landing page</p>
+            </div>
+          </a>
 
-        <a class="project-card glow-border subtle" target="_blank"
-           href="https://preview--cinematic-finance-forge.lovable.app/">
-          <img src="assets/ecom.jpg" alt="NEXUS e-commerce"/>
-          <div class="p-meta">
-            <h3>NEXUS</h3>
-            <p>E-commerce showcase</p>
-          </div>
-        </a>
+          <a class="project-card glow-border subtle" target="_blank"
+             href="https://preview--cinematic-finance-forge.lovable.app/">
+            <img src="assets/ecom.jpg" alt="NEXUS — E-commerce"/>
+            <div class="p-meta">
+              <h3>NEXUS</h3>
+              <p>E-commerce showcase</p>
+            </div>
+          </a>
 
-        <a class="project-card glow-border subtle" target="_blank"
-           href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
-          <img src="assets/ai-eco.jpg" alt="NEURALFRAME"/>
-          <div class="p-meta">
-            <h3>NEURALFRAME</h3>
-            <p>AI cognition system</p>
-          </div>
-        </a>
+          <a class="project-card glow-border subtle" target="_blank"
+             href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
+            <img src="assets/ai-eco.jpg" alt="NEURALFRAME — AI Cognition"/>
+            <div class="p-meta">
+              <h3>NEURALFRAME</h3>
+              <p>AI cognition system</p>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="container reveal">
-      <h2 class="heading center">Let’s Build Something Calm & Powerful</h2>
-      <p class="sub center">Fastest: WhatsApp • We reply within 2 business hours.</p>
-      <div class="contact-cta">
-        <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
-        <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
+  <!-- SCENE: CONTACT -->
+  <section id="scene-contact" class="scene scene-contact">
+    <div class="container">
+      <div class="fade-element">
+        <h2 class="heading center">Let’s Build Something Calm & Powerful</h2>
+        <p class="sub center">Fastest: WhatsApp • We reply within 2 business hours.</p>
+        <div class="contact-cta">
+          <a class="btn btn-primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
+          <a class="btn btn-ghost" href="mailto:jazmyndrew69@gmail">Email</a>
+        </div>
       </div>
     </div>
   </section>
@@ -168,7 +177,7 @@
       <h3>Creation</h3>
       <p>Luxury web experiences with quiet precision.</p>
       <div class="footer-contact">
-        <span>reply.uneeda@protonmail.com</span>
+        <span>jazmyndrew69@gmail.com</span>
         <span>+91 9832081719</span>
       </div>
     </div>
@@ -212,6 +221,7 @@
       </a>
     </div>
   </footer>
+
   <div class="footer-bottom">© 2025 Creation — All rights reserved.</div>
 
   <script src="script.js"></script>

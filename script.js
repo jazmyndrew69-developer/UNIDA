@@ -1,49 +1,38 @@
-// =========================
-// ROLE TOGGLE (glitch + smooth switching)
-// =========================
-
+// ---------- ROLE TOGGLE ----------
 const role = document.getElementById("toggle-role");
 const comingSoon = document.getElementById("coming-soon");
+const roles = ["Developer", "Designer"];
+let r = 0;
 
-let roles = ["Developer", "Designer"];
-let index = 0;
-
-function updateRole() {
-  index = (index + 1) % roles.length;
-
-  // restart glitch animation
-  role.classList.remove("glitch-active");
-  void role.offsetWidth;
-  role.textContent = roles[index];
-  role.classList.add("glitch-active");
-
-  // fade "coming soon"
-  comingSoon.style.opacity = roles[index] === "Designer" ? "0.7" : "0";
+function switchRole(){
+  r = (r+1) % roles.length;
+  role.textContent = roles[r];
+  comingSoon.style.opacity = roles[r] === "Designer" ? "0.8" : "0";
 }
+setInterval(switchRole, 2600);
 
-// slower, less spammy switch
-setInterval(updateRole, 2600);
-updateRole();
-
-// =========================
-// OPEN / CLOSE SCENES
-// =========================
-
-document.querySelectorAll("[data-scene]").forEach(btn => {
+// ---------- OPEN / CLOSE SCENES ----------
+document.querySelectorAll("[data-scene]").forEach(btn =>
   btn.addEventListener("click", () => {
-    const target = document.getElementById(`scene-${btn.dataset.scene}`);
-    document.getElementById("overlay").classList.add("active");
-    target.hidden = false;
-    target.classList.add("open");
-  });
-});
-
-document.querySelectorAll("[data-close]").forEach(btn =>
-  btn.addEventListener("click", () => {
-    const scene = btn.closest(".scene");
-    scene.classList.remove("open");
-    scene.hidden = true;
-    document.getElementById("overlay").classList.remove("active");
+    document.getElementById(`scene-${btn.dataset.scene}`).hidden = false;
+    document.getElementById("overlay").style.display = "block";
   })
 );
 
+document.querySelectorAll("[data-close]").forEach(btn =>
+  btn.addEventListener("click", () => {
+    btn.closest(".scene").hidden = true;
+    document.getElementById("overlay").style.display = "none";
+  })
+);
+
+// ---------- PETALS ----------
+function createPetal(){
+  const petal = document.createElement("span");
+  petal.className = "petal";
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = (6 + Math.random() * 6) + "s";
+  document.getElementById("petals").appendChild(petal);
+  setTimeout(()=>petal.remove(), 12000);
+}
+setInterval(createPetal, 480);

@@ -22,6 +22,18 @@ function showScene(index){
   current = index;
 }
 
+let wheelLock = false;
+window.addEventListener("wheel", (e) => {
+  if (wheelLock) return;
+  wheelLock = true;
+
+  if (e.deltaY > 0) showScene(current + 1);  // scroll down → next
+  else showScene(current - 1);              // scroll up → previous
+
+  setTimeout(() => wheelLock = false, 950);
+});
+
+
 // Nav + CTA buttons use data-index
 document.querySelectorAll("[data-index]").forEach(btn=>{
   btn.addEventListener("click", ()=>{

@@ -47,17 +47,25 @@ body{
 .nav-link:hover{color:#fff}
 
 /* SCENE SYSTEM (each slide full-screen) */
-.scene{
-  position:absolute;inset:0;display:none;
-  padding:90px 6% 60px;
-  display:none;opacity:0;
-  transform:translateY(60px) scale(.97);
-  transition:opacity .8s ease,transform .8s ease,filter .8s ease;
-  display:flex;align-items:center;justify-content:center;text-align:center;
+.scene {
+  position: absolute;
+  inset: 0;
+  display: none;
+  opacity: 0;
+  transform: translateY(80px) scale(.95) rotateX(6deg);
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(0.16,1,0.3,1),
+    filter .9s ease;
 }
-.scene.active{
-  display:flex;opacity:1;transform:translateY(0) scale(1);filter:blur(0)
+
+.scene.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+  filter: blur(0);
 }
+
 .scene-inner{width:min(1100px,92vw);margin:0 auto}
 
 /* HERO */
@@ -126,12 +134,22 @@ body{
 .contact-cta{margin-top:18px;display:flex;gap:12px;justify-content:center}
 
 /* FOOTER */
-.footer{
-  position:fixed;left:0;bottom:0;width:100%;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  padding:20px 6%;border-top:1px solid rgba(255,255,255,.15);
-  background:rgba(0,0,0,.35);backdrop-filter:blur(10px);z-index:10
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 6%;
+  border-top: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none; /* disables click when invisible */
+  transition: opacity .6s ease;
 }
+
 .footer-left h3{
   font-family:"Playfair Display",serif;font-size:1.4rem;
   background:var(--glow);-webkit-background-clip:text;color:transparent;margin-bottom:6px
@@ -144,7 +162,14 @@ body{
   display:grid;place-items:center;color:#fff;text-decoration:none;transition:all .3s ease
 }
 .footer-icon:hover{border-color:#FFC5D9;box-shadow:0 0 14px rgba(255,197,217,.5);transform:translateY(-2px)}
-.footer-bottom{text-align:center;opacity:.65;padding:12px 0 22px;font-size:.85rem}
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  opacity: 0.6;
+  margin-top: 10px;
+  font-size: .85rem;
+}
+
 
 /* RESPONSIVE */
 @media (max-width:1024px){
@@ -155,4 +180,9 @@ body{
   .nav nav{display:none}
   .cards{grid-template-columns:1fr}
   .brand-title{font-size:clamp(30px,8vw,50px)}
+}
+
+.scene.active:last-of-type ~ .footer {
+  opacity: 1;
+  pointer-events: auto;
 }

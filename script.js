@@ -1,66 +1,57 @@
-// ===== ROLE TOGGLE =====
+// ===== SIMPLE ROLE TOGGLE (no glitch) =====
 const role = document.getElementById("toggle-role");
+const comingSoon = document.getElementById("coming-soon");
 const roles = ["Developer", "Designer"];
-let i = 0;
+let idx = 0;
 
-setInterval(() => {
-  i = (i + 1) % roles.length;
-  role.textContent = roles[i];
-}, 2400);
-
-
-// ===== OPEN SCENE =====
-document.querySelectorAll("[data-scene]").forEach(btn =>
-  btn.addEventListener("click", () => {
-    const target = document.getElementById(`scene-${btn.dataset.scene}`);
-    closeAllScenes();
-    target.hidden = false;
-  })
-);
-
-
-// ===== CLOSE BUTTON =====
-document.querySelectorAll("[data-close]").forEach(btn =>
-  btn.addEventListener("click", () => btn.closest(".scene").hidden = true)
-);
-
-
-// ===== CLOSE POPUP ON ACTION INSIDE =====
-function closeAllScenes() {
-  document.querySelectorAll(".scene").forEach(scene => {
-    scene.hidden = true;
-  });
-}
-
-// auto-close pop-up when clicking project cards or service CTA
-document.querySelectorAll("a[target='_blank'], a.btn").forEach(el =>
-  el.addEventListener("click", () => closeAllScenes())
-);
-
-/* === FALLING PETALS === */
-function createPetal() {
-  const petal = document.createElement("span");
-  petal.classList.add("petal");
-
-  const size = Math.random() * 12 + 10;          // petal size
-  const fallDuration = Math.random() * 6 + 12;   // slower fall (12–18s)
-  const leftPos = Math.random() * 100;           // random x start position
-
-  petal.style.left = leftPos + "vw";
-  petal.style.width = size + "px";
-  petal.style.height = size + "px";
-  petal.style.animationDuration = fallDuration + "s";
-
-  // your asset image (IMPORTANT: file must be inside /assets/)
-  petal.style.backgroundImage = "url('assets/petal.png')";
-  petal.style.backgroundSize = "cover";
-
-  document.getElementById("petals").appendChild(petal);
-
+function setRole() {
+  idx = (idx + 1) % roles.length;
+  role.style.opacity = 0;
   setTimeout(() => {
-    petal.remove();
-  }, fallDuration * 1000);
+    role.textContent = roles[idx];
+    role.style.opacity = 1;
+    comingSoon.style.opacity = roles[idx] === "Designer" ? 0.85 : 0;
+  }, 220);
 }
+setInterval(setRole, 2600);
+setRole();
 
-// steady flow (one petal every 600ms)
-setInterval(createPetal, 600);
+// ===== PETALS (soft, elegant) =====
+const petalsRoot = document.getElementById("petals");
+function createPetal(){
+  const s = document.createElement("span");
+  s.className = "petal";
+  const size = 8 + Math.random()*10;          // 8–18px
+  const dur  = 12 + Math.random()*7;          // 12–19s
+  s.style.left = Math.random()*100 + "vw";
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+  s.style.animationDuration = dur + "s";
+  petalsRoot.appendChild(s);
+  setTimeout(()=>s.remove(), dur*1000);
+}
+setInterval(createPetal, 650);
+
+// ===== Smooth in-page scroll =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    if(!id || id === "#") return;
+    const target = document.querySelector(id);
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  });
+});
+
+// ===== Reveal on scroll (cinematic) =====
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));

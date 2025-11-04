@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>UNIDA — Dimensional Portal</title>
+  <title>UNIDA — Cinematic Slide</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
+  <!-- NAV (fixed) -->
   <header class="nav">
     <div class="brand">UNIDA</div>
     <nav>
@@ -19,61 +21,131 @@
     </nav>
   </header>
 
-  <!-- HERO with petals -->
-  <section class="portal active" data-bg="assets/hero.jpg" data-petals="true">
-    <div id="petals"></div>
-    <div class="panel">
+  <!-- SCENES (full-screen slides) -->
+
+  <!-- HERO -->
+  <section class="scene active" data-bg="assets/cherryblossom1.jpg">
+    <div class="inner">
       <h1 class="title">U-NEED-A</h1>
-      <div class="toggle"><span id="roleB">Developer</span></div>
+
+      <div class="toggle">
+        <span id="role">Developer</span>
+      </div>
       <div class="soon">Designer — coming soon</div>
+
       <p class="tag">Elegance. Engineered. Websites that feel expensive.</p>
+
+      <div class="ctas">
+        <button class="btn primary" data-index="2">View Services</button>
+        <button class="btn ghost" data-index="3">See Projects</button>
+      </div>
     </div>
   </section>
 
-  <section class="portal" data-bg="assets/about.jpg">
-    <div class="panel two">
-      <div class="shot" style="background-image:url('assets/about.jpgt.avif')"></div>
+  <!-- ABOUT (image left / text right) -->
+  <section class="scene" data-bg="assets/about.jpg.avif">
+    <div class="split">
+      <div class="shot" style="background-image:url('assets/about.jpg.avif')"></div>
       <div class="copy">
         <h2>Who We Are</h2>
-        <p>Pastel-luxury experiences, calm, premium, fast.</p>
-        <ul><li>Luxury aesthetic</li><li>Landing pages & websites</li><li>Lead flows</li></ul>
+        <p>We craft luxury, calm, high-performance web experiences. No conversion promises—just clean execution that supports your goals.</p>
+        <ul>
+          <li>Luxury aesthetic, high legibility</li>
+          <li>Landing pages, full websites & CI</li>
+          <li>WhatsApp CTAs & simple lead flows</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="portal" data-bg="assets/services.jpg">
-    <div class="panel">
+  <!-- SERVICES -->
+  <section class="scene" data-bg="assets/services.jpg">
+    <div class="inner">
       <h2 class="h">Services & Pricing</h2>
       <div class="cards">
-        <article class="card"><div class="price">₹15,000</div><h3>Starter</h3></article>
-        <article class="card"><div class="price">₹25,000</div><h3>Pro</h3></article>
-        <article class="card"><div class="price">₹40,000+</div><h3>Premium</h3></article>
+        <article class="card">
+          <div class="price">₹15,000</div>
+          <h3>Starter</h3>
+          <ul>
+            <li>Single landing page</li>
+            <li>Responsive + SEO basics</li>
+            <li>WhatsApp CTA</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="price">₹25,000</div>
+          <h3>Pro</h3>
+          <ul>
+            <li>Multi-section website</li>
+            <li>Speed + analytics</li>
+            <li>Lead capture flow</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="price">₹40,000+</div>
+          <h3>Premium</h3>
+          <ul>
+            <li>Custom components</li>
+            <li>Micro-interactions</li>
+            <li>Light CMS/API ready</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="portal" data-bg="assets/projects.jpg">
-    <div class="panel">
+  <!-- PROJECTS -->
+  <section class="scene" data-bg="assets/projects.jpg">
+    <div class="inner">
       <h2 class="h">Projects</h2>
       <div class="cards projects">
-        <a class="card" target="_blank" href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5S&f=1&path=%2F"><img src="assets/house.jpg"><h3>Astral Heights</h3></a>
-        <a class="card" target="_blank" href="https://preview--cinematic-finance-forge.lovable.app/"><img src="assets/ecom.jpg"><h3>NEXUS</h3></a>
-        <a class="card" target="_blank" href="https://armizor-neural-nexus-horizon.static.hf.space/index.html"><img src="assets/ai-eco.jpg"><h3>NEURALFRAME</h3></a>
+        <a class="card" target="_blank" href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5S&f=1&path=%2F">
+          <img src="assets/house.jpg" alt="Astral Heights">
+          <h3>Astral Heights</h3>
+        </a>
+        <a class="card" target="_blank" href="https://preview--cinematic-finance-forge.lovable.app/">
+          <img src="assets/ecom.jpg" alt="NEXUS">
+          <h3>NEXUS</h3>
+        </a>
+        <a class="card" target="_blank" href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
+          <img src="assets/ai-eco.jpg" alt="NEURALFRAME">
+          <h3>NEURALFRAME</h3>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="portal" data-bg="assets/cherryblossom1.jpg">
-    <div class="panel">
+  <!-- CONTACT -->
+  <section class="scene" data-bg="assets/cherryblossom1.jpg">
+    <div class="inner">
       <h2 class="h">Let’s Build Something Calm & Powerful</h2>
       <div class="cta-bar">
-        <a class="btn primary" href="https://wa.me/919832081719" target="_blank">WhatsApp</a>
+        <a class="btn primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
         <a class="btn ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
       </div>
     </div>
   </section>
 
-  <footer class="footer"><div class="left">© 2025 UNIDA</div><div class="right">Pastel-luxury by UNIDA</div></footer>
+  <!-- FOOTER (only shows on final slide) -->
+  <footer class="footer">
+    <div class="left">
+      <h3>UNIDA</h3>
+      <p>Pastel-luxury web experiences with quiet precision.</p>
+      <div class="meta">
+        <span>reply.uneeda@protonmail.com</span>
+        <span>+91 9832081719</span>
+      </div>
+    </div>
+    <div class="right">
+      <a class="icon" href="https://instagram.com" target="_blank">IG</a>
+      <a class="icon" href="mailto:reply.uneeda@protonmail.com">Mail</a>
+      <a class="icon" href="https://wa.me/919832081719" target="_blank">Wp</a>
+      <a class="icon" href="#" target="_blank">Fi</a>
+      <a class="icon" href="#" target="_blank">Up</a>
+    </div>
+  </footer>
+  <div class="legal">© 2025 UNIDA — All rights reserved.</div>
+
   <script src="script.js"></script>
 </body>
 </html>

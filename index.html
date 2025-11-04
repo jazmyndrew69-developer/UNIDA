@@ -3,22 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Jazmyn's Portfolio</title>
-
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <title>UNIDA — Cinematic Slide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
-
 <body>
-
-  <!-- Cherry blossom background + petals layer -->
-  <div class="hero-bg"></div>
-  <div id="petals"></div>
-
-  <!-- NAVIGATION -->
   <header class="nav">
-    <div class="brand">Creation</div>
+    <div class="brand">UNIDA</div>
     <nav>
       <button class="nav-link" data-index="0">Home</button>
       <button class="nav-link" data-index="1">About</button>
@@ -28,136 +19,91 @@
     </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="scene active">
-    <div class="scene-inner">
-      <h1 class="brand-title">You're in Jazmyn's Studio</h1>
-
-      <div class="toggle-wrap">
-        <span id="toggle-role" class="toggle-role">Developer</span>
-      </div>
-      <div class="coming-soon">Designer — coming soon</div>
-
-      <p class="tagline">Elegance engineered into digital experiences that feel expensive.</p>
-
-      <div class="hero-ctas">
-        <button class="btn btn-primary" data-index="2">View Services</button>
-        <button class="btn btn-ghost" data-index="3">See Projects</button>
+  <section class="scene active" data-bg="assets/hero.jpg">
+    <div class="inner">
+      <h1 class="title">U-NEED-A</h1>
+      <div class="toggle"><span id="roleA">Developer</span></div>
+      <div class="soon">Designer — coming soon</div>
+      <p class="tag">Elegance. Engineered. Websites that feel expensive.</p>
+      <div class="ctas">
+        <button class="btn primary" data-index="2">View Services</button>
+        <button class="btn ghost" data-index="3">See Projects</button>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="scene">
-    <div class="about-grid">
-      <div class="about-img"></div>
-
-      <div class="about-text">
+  <section class="scene" data-bg="assets/about.jpg">
+    <div class="two">
+      <div class="shot" style="background-image:url('assets/about.jpg')"></div>
+      <div class="copy">
         <h2>Who We Are</h2>
-        <p>We craft luxury web experiences that feel calm, premium and fast.</p>
+        <p>Pastel-luxury experiences, calm, premium, fast. No conversion promises—just clean execution.</p>
         <ul>
           <li>Luxury aesthetic, high legibility</li>
-          <li>Landing pages, full stack websites & CI</li>
-          <li>WhatsApp CTAs, simple lead flows, tidy handoffs</li>
+          <li>Landing pages, full websites & CI</li>
+          <li>WhatsApp CTAs, simple lead flows</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section class="scene">
-    <div class="container">
-      <h2 class="section-title">Services & Pricing</h2>
-      <p class="sub">Pastel borders, clear scope, premium craft.</p>
-
+  <section class="scene" data-bg="assets/services.jpg">
+    <div class="inner">
+      <h2 class="h">Services & Pricing</h2>
       <div class="cards">
-        <article class="card pastel">
-          <div class="price-badge">₹15,000</div>
-          <h3>Starter</h3>
-          <ul>
-            <li>Single landing page</li>
-            <li>WhatsApp CTA integration</li>
-            <li>Delivery 3–5 days</li>
-          </ul>
-        </article>
-
-        <article class="card pastel">
-          <div class="price-badge">₹25,000</div>
-          <h3>Pro</h3>
-          <ul>
-            <li>Multi section website</li>
-            <li>Lead flow + analytics</li>
-            <li>Delivery 5–8 days</li>
-          </ul>
-        </article>
-
-        <article class="card pastel">
-          <div class="price-badge">₹40,000+</div>
-          <h3>Premium</h3>
-          <ul>
-            <li>Custom components</li>
-            <li>Micro-interactions</li>
-            <li>CMS ready</li>
-          </ul>
-        </article>
+        <article class="card"><div class="price">₹15,000</div><h3>Starter</h3><ul><li>Landing page</li><li>SEO basics</li><li>WhatsApp CTA</li></ul></article>
+        <article class="card"><div class="price">₹25,000</div><h3>Pro</h3><ul><li>Multi-section</li><li>Lead flow</li><li>Analytics</li></ul></article>
+        <article class="card"><div class="price">₹40,000+</div><h3>Premium</h3><ul><li>Custom comps</li><li>Micro-interactions</li><li>CMS ready</li></ul></article>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section class="scene">
-    <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <p class="sub">Live demos — open in a new tab.</p>
-
+  <section class="scene" data-bg="assets/projects.jpg">
+    <div class="inner">
+      <h2 class="h">Projects</h2>
       <div class="cards projects">
-        <a class="card pastel" target="_blank" href="#">
-          <img src="assets/house.jpg"/>
-          <h3>Astral Heights</h3>
+        <a class="card" target="_blank" href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5S&f=1&path=%2F">
+          <img src="assets/hero.jpg" alt="Astral Heights"><h3>Astral Heights</h3>
         </a>
-
-        <a class="card pastel" target="_blank" href="#">
-          <img src="assets/ecom.jpg"/>
-          <h3>NEXUS</h3>
+        <a class="card" target="_blank" href="https://preview--cinematic-finance-forge.lovable.app/">
+          <img src="assets/services.jpg" alt="NEXUS"><h3>NEXUS</h3>
         </a>
-
-        <a class="card pastel" target="_blank" href="#">
-          <img src="assets/ai-eco.jpg"/>
-          <h3>NEURALFRAME</h3>
+        <a class="card" target="_blank" href="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
+          <img src="assets/projects.jpg" alt="NEURALFRAME"><h3>NEURALFRAME</h3>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="scene">
-    <div class="container">
-      <h2 class="section-title">Let’s Build Something Calm & Powerful</h2>
-      <div class="contact-cta">
-        <a class="btn btn-primary" href="https://wa.me/919832081719" target="_blank">WhatsApp</a>
-        <a class="btn btn-ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
+  <section class="scene" data-bg="assets/contact.jpg">
+    <div class="inner">
+      <h2 class="h">Let’s Build Something Calm & Powerful</h2>
+      <div class="cta-bar">
+        <a class="btn primary" target="_blank" href="https://wa.me/919832081719">WhatsApp</a>
+        <a class="btn ghost" href="mailto:reply.uneeda@protonmail.com">Email</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
-    <div class="footer-left">
-      <h3>Creation</h3>
-      <p>Luxury web experiences with quiet precision.</p>
-      <span>jazmyndrew69@gmail.com</span>
-      <span>+91 9832081719</span>
+    <div class="left">
+      <h3>UNIDA</h3>
+      <p>Pastel-luxury web experiences with quiet precision.</p>
+      <div class="meta">
+        <span>reply.uneeda@protonmail.com</span>
+        <span>+91 9832081719</span>
+      </div>
     </div>
-
-    <div class="footer-right">
-      <span class="footer-icon">IG</span>
-      <span class="footer-icon">Mail</span>
-      <span class="footer-icon">Wp</span>
-      <span class="footer-icon">Fi</span>
-      <span class="footer-icon">Up</span>
+    <div class="right">
+      <a class="icon" href="https://instagram.com" target="_blank">IG</a>
+      <a class="icon" href="mailto:reply.uneeda@protonmail.com">Mail</a>
+      <a class="icon" href="https://wa.me/919832081719" target="_blank">Wp</a>
+      <a class="icon" href="#" target="_blank">Fi</a>
+      <a class="icon" href="#" target="_blank">Up</a>
     </div>
   </footer>
+  <div class="legal">© 2025 UNIDA — All rights reserved.</div>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

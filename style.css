@@ -338,3 +338,109 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===========================
+   MOBILE / RESPONSIVE FIXES
+   Paste at the END of style.css
+=========================== */
+
+/* General section padding on small screens */
+@media (max-width: 1024px) {
+  .section {
+    padding: 10vh 5%;
+  }
+}
+
+/* Tighten hero overlay darkness on mobile so text remains crisp */
+@media (max-width: 768px) {
+  .hero .overlay {
+    background: rgba(0,0,0,.35);
+  }
+}
+
+/* Nav layout & tap targets */
+@media (max-width: 900px) {
+  .nav {
+    padding: 16px 5%;
+  }
+  .nav nav a {
+    margin-left: 14px;
+    font-size: 0.95rem;
+  }
+}
+
+/* About grid stacks and centers */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    text-align: center;
+    max-width: 92%;
+  }
+  .about-text {
+    margin: 0 auto;
+    max-width: 540px;
+  }
+  .about-img {
+    height: 300px;          /* avoid over-tall images on mobile */
+  }
+}
+
+/* Service / Project cards wrap cleanly and stay centered */
+@media (max-width: 1100px) {
+  .cards {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .card {
+    width: min(290px, 100%);
+  }
+}
+
+/* Button size and readability on small screens */
+@media (max-width: 480px) {
+  .btn {
+    min-width: 48%;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+  .brand-title {
+    font-size: clamp(28px, 9vw, 48px);
+  }
+  .tagline {
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+}
+
+/* Reduce heavy filters for low-end phones to avoid lag */
+@media (max-width: 480px) {
+  .toggle-wrap {
+    backdrop-filter: blur(8px);
+  }
+  .card {
+    backdrop-filter: blur(6px);
+  }
+}
+
+/* Footer: keep two columns but allow graceful wrap on tiny screens */
+@media (max-width: 720px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .footer-right {
+    gap: 10px;
+  }
+}
+
+/* Ensure nav links never disappear due to overflow (Brave/Chrome bug) */
+@media (max-width: 360px) {
+  .nav nav a {
+    margin-left: 10px;
+    font-size: 0.9rem;
+  }
+}

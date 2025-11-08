@@ -50,3 +50,40 @@ function createPetal() {
 }
 
 setInterval(createPetal, 300);
+
+
+// ===========================
+// Get Started → Google Form (new tab) + return-to-contact
+// ===========================
+(function attachFormButtons(){
+  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfxAYcVID9KQSnTX93mXykN7rEYf9obHNeSjhYly-ysy8xKw/viewform?usp=header";
+  const buttons = document.querySelectorAll(".btn-start");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      // prefer data-form if you ever change per-plan URLs later
+      const url = btn.getAttribute("data-form") || FORM_URL;
+
+      // mark that form was opened
+      sessionStorage.setItem("form-opened", "1");
+
+      // open in a new tab (keeps your requirement)
+      window.open(url, "_blank", "noopener");
+
+      // optional: nudge scroll to contact if the user returns quickly
+      // we'll actually jump on window focus below
+    });
+  });
+
+  // When the user comes back to this tab (after submitting the form),
+  // auto-jump to Contact.
+  window.addEventListener("focus", () => {
+    if (sessionStorage.getItem("form-opened") === "1") {
+      sessionStorage.removeItem("form-opened");
+      // Jump to contact section smoothly
+      const contact = document.querySelector("#contact");
+      if (contact) contact.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+})();

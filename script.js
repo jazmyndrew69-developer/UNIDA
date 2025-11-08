@@ -16,24 +16,27 @@ let current = 0;
 function showScene(index) {
   if (index === current || index < 0 || index >= scenes.length) return;
 
-  /* remove active from current */
+  // Remove active from previous
   scenes[current].classList.remove("active");
 
-  /* if leaving HOME, hide bg */
+  // Fade home background only on first scene
   document.querySelector(".hero-bg").style.opacity = index === 0 ? "1" : "0";
 
-  /* show new scene */
+  // Add active to new scene
   scenes[index].classList.add("active");
   current = index;
 
-  /* show footer only on last slide */
-  document.querySelector(".footer").classList.toggle("show", index === scenes.length - 1);
+  // Footer only on last slide
+  document.querySelector(".footer").classList.toggle(
+    "show",
+    index === scenes.length - 1
+  );
 }
 
-/* NAVIGATION clicking events */
-document.querySelectorAll("button[data-index]").forEach(btn =>
-  btn.addEventListener("click", () => {
-    const target = Number(btn.dataset.index);
+/* NAVIGATION + CTA buttons (works for <button> and <a>) */
+document.querySelectorAll("[data-index]").forEach(el =>
+  el.addEventListener("click", () => {
+    const target = Number(el.dataset.index);
     showScene(target);
   })
 );
@@ -48,42 +51,29 @@ function createPetal() {
   document.getElementById("petals").appendChild(petal);
   setTimeout(() => petal.remove(), 9000);
 }
-
 setInterval(createPetal, 300);
 
 
 // ===========================
-// Get Started → Google Form (new tab) + return-to-contact
+// Get Started → Google Form → Auto jump to CONTACT slide
 // ===========================
-(function attachFormButtons(){
-  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfxAYcVID9KQSnTX93mXykN7rEYf9obHNeSjhYly-ysy8xKw/viewform?usp=header";
+(function attachFormButtons() {
   const buttons = document.querySelectorAll(".btn-start");
 
   buttons.forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      // prefer data-form if you ever change per-plan URLs later
-      const url = btn.getAttribute("data-form") || FORM_URL;
 
-      // mark that form was opened
+      // open form in new tab (uses button’s own data-form link)
+      window.open(btn.dataset.form, "_blank", "noopener");
       sessionStorage.setItem("form-opened", "1");
-
-      // open in a new tab (keeps your requirement)
-      window.open(url, "_blank", "noopener");
-
-      // optional: nudge scroll to contact if the user returns quickly
-      // we'll actually jump on window focus below
     });
   });
 
-  // When the user comes back to this tab (after submitting the form),
-  // auto-jump to Contact.
   window.addEventListener("focus", () => {
     if (sessionStorage.getItem("form-opened") === "1") {
       sessionStorage.removeItem("form-opened");
-      // Jump to contact section smoothly
-      const contact = document.querySelector("#contact");
-      if (contact) contact.scrollIntoView({ behavior: "smooth", block: "start" });
+      showScene(4); // jump directly to CONTACT slide
     }
   });
 })();

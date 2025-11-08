@@ -444,3 +444,28 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* Fix nav selector to actually style the nav buttons */
+.nav nav button {
+  margin-left: 14px;
+  font-size: 0.95rem;
+}
+
+/* Prevent slide clipping on mobile */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+  }
+  #viewport {
+    height: auto;
+  }
+  .scene {
+    position: relative;
+    min-height: 100vh;
+  }
+}
+
+/* Smooth GPU-transform for scenes to avoid flicker */
+.scene {
+  will-change: transform, opacity;
+}

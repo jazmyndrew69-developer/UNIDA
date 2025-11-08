@@ -469,3 +469,36 @@ body {
 .scene {
   will-change: transform, opacity;
 }
+
+/* =============== MOBILE FIXES =============== */
+
+/* Fix slide height + scrolling */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto !important;
+  }
+  #viewport {
+    height: auto !important;
+  }
+  .scene {
+    min-height: 100vh;
+    position: relative;
+  }
+}
+
+/* Fix Nav button spacing on small screens */
+.nav nav button {
+  margin-left: 14px;
+  font-size: .95rem;
+}
+
+/* Prevent layout break when width is extremely narrow */
+@media (max-width: 400px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    width: 92%;
+  }
+}

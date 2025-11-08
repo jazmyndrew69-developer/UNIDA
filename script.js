@@ -54,26 +54,23 @@ function createPetal() {
 setInterval(createPetal, 300);
 
 
-// ===========================
-// Get Started → Google Form → Auto jump to CONTACT slide
-// ===========================
+// UNIFORM GET STARTED → Google Form → return back to CONTACT slide
 (function attachFormButtons() {
-  const buttons = document.querySelectorAll(".btn-start");
+  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfxAYcVID9KQSnTX93mXykN7rEYf9obHNeSjhYly-ysy8xKw/viewform?usp=header";
 
-  buttons.forEach(btn => {
+  document.querySelectorAll(".btn-start").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-
-      // open form in new tab (uses button’s own data-form link)
-      window.open(btn.dataset.form, "_blank", "noopener");
+      window.open(FORM_URL, "_blank", "noopener");
       sessionStorage.setItem("form-opened", "1");
     });
   });
 
+  // After form submission, user returns → automatically jump to CONTACT slide
   window.addEventListener("focus", () => {
     if (sessionStorage.getItem("form-opened") === "1") {
       sessionStorage.removeItem("form-opened");
-      showScene(4); // jump directly to CONTACT slide
+      showScene(4);   // slide index of CONTACT
     }
   });
 })();

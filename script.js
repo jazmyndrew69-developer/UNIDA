@@ -16,17 +16,12 @@ let current = 0;
 function showScene(index) {
   if (index === current || index < 0 || index >= scenes.length) return;
 
-  // Remove active from previous
   scenes[current].classList.remove("active");
-
-  // Fade home background only on first scene
   document.querySelector(".hero-bg").style.opacity = index === 0 ? "1" : "0";
 
-  // Add active to new scene
   scenes[index].classList.add("active");
   current = index;
 
-  // Footer only on last slide
   document.querySelector(".footer").classList.toggle(
     "show",
     index === scenes.length - 1
@@ -54,30 +49,23 @@ function createPetal() {
 setInterval(createPetal, 300);
 
 
-// UNIFORM GET STARTED → Google Form → return to CONTACT slide
+/* ===== UNIFIED GET STARTED BUTTON LOGIC ===== */
 (function attachFormButtons() {
-  const FORM_URL = "https://forms.gle/WiaRHtZSaZGv8kXW7"; // <-- NEW URL HERE
+  const FORM_URL = "https://forms.gle/WiaRHtZSaZGv8kXW7";
 
   document.querySelectorAll(".btn-start").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-
-      // open form in a new tab
       window.open(FORM_URL, "_blank", "noopener");
 
       sessionStorage.setItem("form-opened", "1");
     });
   });
 
-  // Detect when user comes back to tab after form interaction
   window.addEventListener("focus", () => {
     if (sessionStorage.getItem("form-opened") === "1") {
       sessionStorage.removeItem("form-opened");
-
-      // Jump to CONTACT slide (index = 4)
       showScene(4);
     }
   });
-})();
-
 })();

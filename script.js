@@ -54,23 +54,30 @@ function createPetal() {
 setInterval(createPetal, 300);
 
 
-// UNIFORM GET STARTED → Google Form → return back to CONTACT slide
+// UNIFORM GET STARTED → Google Form → return to CONTACT slide
 (function attachFormButtons() {
-  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScfxAYcVID9KQSnTX93mXykN7rEYf9obHNeSjhYly-ysy8xKw/viewform?usp=header";
+  const FORM_URL = "https://forms.gle/WiaRHtZSaZGv8kXW7"; // <-- NEW URL HERE
 
   document.querySelectorAll(".btn-start").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
+
+      // open form in a new tab
       window.open(FORM_URL, "_blank", "noopener");
+
       sessionStorage.setItem("form-opened", "1");
     });
   });
 
-  // After form submission, user returns → automatically jump to CONTACT slide
+  // Detect when user comes back to tab after form interaction
   window.addEventListener("focus", () => {
     if (sessionStorage.getItem("form-opened") === "1") {
       sessionStorage.removeItem("form-opened");
-      showScene(4);   // slide index of CONTACT
+
+      // Jump to CONTACT slide (index = 4)
+      showScene(4);
     }
   });
+})();
+
 })();

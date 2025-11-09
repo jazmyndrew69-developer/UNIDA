@@ -502,3 +502,10 @@ body {
     width: 92%;
   }
 }
+
+#scene-projects .card h3 {
+  color: var(--lavender) !important;
+}
+#scene-projects .card p {
+  color: rgba(255,255,255,0.75) !important;
+}

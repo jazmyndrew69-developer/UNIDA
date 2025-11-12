@@ -77,3 +77,6 @@
     });
   });
 })();
+
+// Activate Lucide icons globally
+if (window.lucide) lucide.createIcons();

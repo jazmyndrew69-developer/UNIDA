@@ -158,3 +158,35 @@ body {
 
 /* Ensure inactive overlays never block clicks on any page that mimics scenes */
 .scene-like { position: relative; }
+
+/* ====== Footer Icon Styling Upgrade ====== */
+.footer-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.footer-icon i {
+  width: 18px;
+  height: 18px;
+  stroke: var(--ink);
+  stroke-width: 2px;
+  fill: none;
+  transition: stroke 0.3s ease;
+}
+
+.footer-icon:hover {
+  border-color: var(--pink);
+  box-shadow: 0 0 6px rgba(255,197,217,0.4);
+}
+
+.footer-icon:hover i {
+  stroke: url(#glow-gradient);
+  stroke: var(--pink);
+}

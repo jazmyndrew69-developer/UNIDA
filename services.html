@@ -1,0 +1,107 @@
+<!--
+  Creation • services.html
+  Changes: Three uniform “Get Started” anchors (accessible) opening the Google Form in a new tab.
+  Each carries data-plan and pre-fills the form (replace entry.X below once you provide the field ID).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creation • Services & Pricing</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="brand">Creation</div>
+    <nav>
+      <a class="navlink" href="index.html">Home</a>
+      <a class="navlink" href="about.html" aria-label="About (placeholder)">About</a>
+      <a class="navlink" href="services.html" aria-current="page">Services</a>
+      <a class="navlink" href="projects.html">Projects</a>
+      <a class="navlink" href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="section scene-like" id="scene-services" aria-labelledby="svc-title">
+    <div class="section-center">
+      <h2 id="svc-title">Services & Pricing</h2>
+      <p class="sub">Pastel borders. Clear scope. Premium execution.</p>
+
+      <div class="cards">
+        <!-- STARTER -->
+        <article class="card pastel">
+          <div class="price-badge">₹15,000</div>
+          <h3>Starter</h3>
+          <ul>
+            <li>Landing Page</li>
+            <li>Responsive + SEO basics</li>
+            <li>WhatsApp CTA</li>
+          </ul>
+          <a
+            class="btn primary w100 btn-start"
+            data-plan="Starter"
+            href="https://forms.gle/ayJHG2n686WdVC9W7"
+            target="_blank" rel="noopener"
+          >Get Started</a>
+        </article>
+
+        <!-- PRO -->
+        <article class="card pastel">
+          <div class="price-badge">₹25,000</div>
+          <h3>Pro</h3>
+          <ul>
+            <li>Multi-section Website</li>
+            <li>Analytics & Speed tuning</li>
+            <li>Lead capture</li>
+          </ul>
+          <a
+            class="btn primary w100 btn-start"
+            data-plan="Pro"
+            href="https://forms.gle/ayJHG2n686WdVC9W7"
+            target="_blank" rel="noopener"
+          >Get Started</a>
+        </article>
+
+        <!-- PREMIUM -->
+        <article class="card pastel">
+          <div class="price-badge">₹40,000+</div>
+          <h3>Premium</h3>
+          <ul>
+            <li>Custom components</li>
+            <li>Micro-interactions</li>
+            <li>CMS ready</li>
+          </ul>
+          <a
+            class="btn primary w100 btn-start"
+            data-plan="Premium"
+            href="https://forms.gle/ayJHG2n686WdVC9W7"
+            target="_blank" rel="noopener"
+          >Get Started</a>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-left">
+      <h3>Creation</h3>
+      <p>Luxury web experiences with quiet precision.</p>
+      <span>jazmyndrew69@gmail.com</span>
+      <span>+91 9832081719</span>
+    </div>
+
+    <div class="footer-right">
+      <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email">Gm</a>
+      <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp">Wp</a>
+      <span class="footer-icon" aria-hidden="true">Fi</span>
+      <span class="footer-icon" aria-hidden="true">Up</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

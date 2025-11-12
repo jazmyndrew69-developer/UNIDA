@@ -1,14 +1,18 @@
+<!--
+  Creation • index.html
+  Changes: Added hero CTA buttons (“View Projects”, “View Services”) under the tagline.
+  Kept design tokens/visuals. Header/nav works across pages. No libraries.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jazmyn • Portfolio</title>
+  <title>Creation • Home</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
-
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
@@ -17,155 +21,51 @@
   <div id="petals"></div>
 
   <!-- NAVIGATION -->
-  <header class="nav">
+  <header class="nav" role="navigation" aria-label="Primary">
     <div class="brand">Creation</div>
     <nav>
-      <button data-index="0">Home</button>
-      <button data-index="1">About</button>
-      <button data-index="2">Services</button>
-      <button data-index="3">Projects</button>
-      <button data-index="4">Contact</button>
+      <a class="navlink" href="index.html" aria-current="page">Home</a>
+      <a class="navlink" href="about.html" aria-label="About (placeholder)">About</a>
+      <a class="navlink" href="services.html">Services</a>
+      <a class="navlink" href="projects.html">Projects</a>
+      <a class="navlink" href="#contact">Contact</a>
     </nav>
   </header>
 
-  <!-- VIEWPORT (for 3D perspective slides) -->
-  <div id="viewport">
+  <!-- HERO -->
+  <main class="hero" id="top">
+    <div class="centerbox">
+      <h1 class="brand-title">Hey! You're in Jazmyn’s Studio</h1>
 
-    <!-- SLIDE 1 — HOME -->
-    <section class="scene active" id="scene-hero">
-      <div class="centerbox">
-        <h1 class="brand-title">Hey! You're in Jazmyn’s Studio</h1>
-
-        <div class="toggle-wrap">
-          <span id="toggle-role" class="toggle-role">Developer</span>
-        </div>
-        <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
-
-        <p class="tagline">Elegance. Engineered. Websites that feel expensive.</p>
-
-      
+      <div class="toggle-wrap" aria-live="polite">
+        <span id="toggle-role" class="toggle-role">Developer</span>
       </div>
-    </section>
+      <div id="coming-soon" class="coming-soon">Designer — coming soon</div>
 
-    <!-- SLIDE 2 — ABOUT -->
-    <section class="scene" id="scene-about">
-      <div class="about-grid">
-        <div class="about-img"></div>
+      <p class="tagline">Elegance. Engineered. Websites that feel expensive.</p>
 
-        <div class="about-text">
-          <h2>Who We Are</h2>
-          <p>
-            We craft luxury digital experiences that feel calm and premium.
-            No conversion claims — only clean execution.
-          </p>
-
-          <ul>
-            <li>Luxury aesthetic, high legibility</li>
-            <li>Landing pages, full-stack websites & CI</li>
-            <li>WhatsApp CTAs, lead flows, tidy handoffs</li>
-          </ul>
-        </div>
+      <!-- NEW CTA BUTTONS -->
+      <div class="cta-row" role="group" aria-label="Primary actions">
+        <a class="btn primary" href="projects.html">View Projects</a>
+        <a class="btn ghost" href="services.html">View Services</a>
       </div>
-    </section>
-
- <!-- SLIDE 3 — SERVICES -->
-<section class="scene" id="scene-services">
-  <div class="section-center">
-    <h2>Services & Pricing</h2>
-    <p class="sub">Pastel borders. Clear scope. Premium execution.</p>
-
-    <div class="cards">
-
-      <!-- STARTER -->
-      <article class="card pastel">
-        <div class="price-badge">₹15,000</div>
-        <h3>Starter</h3>
-        <ul>
-          <li>Landing Page</li>
-          <li>Responsive + SEO basics</li>
-          <li>WhatsApp CTA</li>
-        </ul>
-        <button class="btn primary w100 btn-start" data-form>
-          Get Started
-        </button>
-      </article>
-
-      <!-- PRO -->
-      <article class="card pastel">
-        <div class="price-badge">₹25,000</div>
-        <h3>Pro</h3>
-        <ul>
-          <li>Multi–section Website</li>
-          <li>Analytics & Speed tuning</li>
-          <li>Lead capture</li>
-        </ul>
-        <button class="btn primary w100 btn-start" data-form>
-          Get Started
-        </button>
-      </article>
-
-      <!-- PREMIUM -->
-      <article class="card pastel">
-        <div class="price-badge">₹40,000+</div>
-        <h3>Premium</h3>
-        <ul>
-          <li>Custom components</li>
-          <li>Micro–interactions</li>
-          <li>CMS ready</li>
-        </ul>
-        <button class="btn primary w100 btn-start" data-form>
-          Get Started
-        </button>
-      </article>
-
     </div>
-  </div>
-</section>
+  </main>
 
-
-    <!-- SLIDE 4 — PROJECTS -->
-    <section class="scene" id="scene-projects">
-      <div class="section-center">
-        <h2>Projects</h2>
-        <div class="cards">
-          
-          <a class="card pastel" href="https://v0.app/chat/luxury-apartment-landing-page-gGgbzmbCeky?b=v0-preview-b_ZIwPM5Mlf5S&f=1&path=%2F" target="_blank">
-            <img src="assets/house.jpg"/>
-            <h3>Astral Heights</h3>
-            <p>Luxury Real-estate</p>
-          </a>
-
-          <a class="card pastel" href="https://preview--cinematic-finance-forge.lovable.app/" target="_blank">
-            <img src="assets/ecom.jpg"/>
-            <h3>NEXUS</h3>
-            <p>E-commerce showcase</p>
-          </a>
-
-          <a class="card pastel" href="https://armizor-neural-nexus-horizon.static.hf.space/index.html" target="_blank">
-            <img src="assets/ai-eco.jpg"/>
-            <h3>NEURALFRAME</h3>
-            <p>AI Cognition system</p>
-          </a>
-
-        </div>
+  <!-- CONTACT (anchor target) -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="section-center">
+      <h2 id="contact-title">Let’s Build Something Calm & Powerful</h2>
+      <p>Fastest: WhatsApp • We reply within 2 hours.</p>
+      <div class="cta-row contact-cta">
+        <a href="https://wa.me/919832081719" target="_blank" rel="noopener" class="btn primary" aria-label="WhatsApp chat">WhatsApp</a>
+        <a href="mailto:reply.uneeda@protonmail.com" class="btn ghost" aria-label="Send email">Email</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SLIDE 5 — CONTACT -->
-    <section class="scene" id="scene-contact">
-      <div class="section-center">
-        <h2>Let’s Build Something Calm & Powerful</h2>
-        <p>Fastest: WhatsApp • We reply within 2 hours.</p>
-        <div class="cta-row">
-          <a href="https://wa.me/919832081719" target="_blank" class="btn primary">WhatsApp</a>
-          <a href="mailto:reply.uneeda@protonmail.com" class="btn ghost">Email</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- FOOTER (only visible on last slide) -->
-  <footer class="footer">
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
     <div class="footer-left">
       <h3>Creation</h3>
       <p>Luxury web experiences with quiet precision.</p>
@@ -174,11 +74,11 @@
     </div>
 
     <div class="footer-right">
-      <a class="footer-icon" href="https://instagram.com">IG</a>
-      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com">Gm</a>
-      <a class="footer-icon" href="https://wa.me/919832081719">Wp</a>
-      <a class="footer-icon">Fi</a>
-      <a class="footer-icon">Up</a>
+      <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email">Gm</a>
+      <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp">Wp</a>
+      <span class="footer-icon" aria-hidden="true">Fi</span>
+      <span class="footer-icon" aria-hidden="true">Up</span>
     </div>
   </footer>
 

@@ -1,0 +1,80 @@
+<!--
+  Creation • projects.html
+  Changes: All three project cards are fully clickable (hand cursor + keyboard).
+  Left/right use data-link="#" placeholders; middle keeps its original WhatsApp/demo link if provided.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creation • Projects</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="brand">Creation</div>
+    <nav>
+      <a class="navlink" href="index.html">Home</a>
+      <a class="navlink" href="about.html" aria-label="About (placeholder)">About</a>
+      <a class="navlink" href="services.html">Services</a>
+      <a class="navlink" href="projects.html" aria-current="page">Projects</a>
+      <a class="navlink" href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="section scene-like" id="scene-projects" aria-labelledby="proj-title">
+    <div class="section-center">
+      <h2 id="proj-title">Projects</h2>
+
+      <div class="cards">
+        <!-- LEFT CARD -->
+        <article class="card pastel project-card" tabindex="0"
+          data-link="#" aria-label="Open Astral Heights (replace with final URL)">
+          <!-- TODO: replace data-link with final live URL -->
+          <img src="assets/house.jpg" alt="Astral Heights — luxury real-estate landing"/>
+          <h3>Astral Heights</h3>
+          <p>Luxury Real-estate</p>
+        </article>
+
+        <!-- MIDDLE CARD (demo link retained or WhatsApp if that was your original behavior) -->
+        <article class="card pastel project-card" tabindex="0"
+          data-link="https://preview--cinematic-finance-forge.lovable.app/">
+          <img src="assets/ecom.jpg" alt="NEXUS — e-commerce showcase"/>
+          <h3>NEXUS</h3>
+          <p>E-commerce showcase</p>
+        </article>
+
+        <!-- RIGHT CARD -->
+        <article class="card pastel project-card" tabindex="0"
+          data-link="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
+          <img src="assets/ai-eco.jpg" alt="NEURALFRAME — AI cognition system"/>
+          <h3>NEURALFRAME</h3>
+          <p>AI Cognition system</p>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-left">
+      <h3>Creation</h3>
+      <p>Luxury web experiences with quiet precision.</p>
+      <span>jazmyndrew69@gmail.com</span>
+      <span>+91 9832081719</span>
+    </div>
+
+    <div class="footer-right">
+      <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email">Gm</a>
+      <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp">Wp</a>
+      <span class="footer-icon" aria-hidden="true">Fi</span>
+      <span class="footer-icon" aria-hidden="true">Up</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

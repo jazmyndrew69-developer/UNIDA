@@ -1,0 +1,86 @@
+<!--
+  Creation • contact.html
+  Purpose: Dedicated Contact page (split from index)
+  Matches existing site styling / layout exactly.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creation • Contact</title>
+
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+  <!-- Background + Petals -->
+  <div class="hero-bg"></div>
+  <div id="petals"></div>
+
+  <!-- NAVIGATION -->
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="brand">Creation</div>
+    <nav>
+      <a class="navlink" href="index.html">Home</a>
+      <a class="navlink" href="about.html">About</a>
+      <a class="navlink" href="services.html">Services</a>
+      <a class="navlink" href="projects.html">Projects</a>
+      <a class="navlink" href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+
+  <!-- CONTACT SECTION -->
+  <main class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="section-center">
+      <h2 id="contact-title">Let’s Build Something Calm & Powerful</h2>
+      <p>Fastest response: WhatsApp — we reply within 2 hours.</p>
+
+      <div class="cta-row contact-cta">
+        <a
+          href="https://wa.me/919832081719"
+          target="_blank"
+          rel="noopener"
+          class="btn primary"
+          aria-label="Chat on WhatsApp"
+        >WhatsApp</a>
+
+        <a
+          href="mailto:reply.uneeda@protonmail.com"
+          class="btn ghost"
+          aria-label="Send an email"
+        >Email</a>
+      </div>
+
+      <div class="contact-extra" style="margin-top: 36px; opacity: 0.85;">
+        <p>You can also reach us directly:</p>
+        <p><strong>Email:</strong> jazmyndrew69@gmail.com</p>
+        <p><strong>Phone:</strong> +91&nbsp;9832081719</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-left">
+      <h3>Creation</h3>
+      <p>Luxury web experiences with quiet precision.</p>
+      <span>jazmyndrew69@gmail.com</span>
+      <span>+91&nbsp;9832081719</span>
+    </div>
+
+    <div class="footer-right">
+      <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email">Gm</a>
+      <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp">Wp</a>
+      <span class="footer-icon" aria-hidden="true">Fi</span>
+      <span class="footer-icon" aria-hidden="true">Up</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

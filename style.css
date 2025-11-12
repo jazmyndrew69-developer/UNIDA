@@ -190,3 +190,21 @@ body {
   stroke: url(#glow-gradient);
   stroke: var(--pink);
 }
+
+/* ===== Fix Footer Position on Short Pages ===== */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer.footer {
+  margin-top: auto;
+}

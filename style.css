@@ -616,3 +616,14 @@ footer.footer {
 .cta-row {
   margin-top: 28px;
 }
+
+/* Reserve space for fixed footer so content isn't hidden */
+body {
+  padding-bottom: 80px; /* equal or slightly more than the footer height */
+}
+
+@media (max-width: 720px) {
+  body {
+    padding-bottom: 100px;
+  }
+}

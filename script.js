@@ -195,15 +195,25 @@ document.addEventListener("DOMContentLoaded", () => {
     rightBtn.setAttribute("tabindex", "-1");
   }
 
-  // Update arrow disabled state depending on scroll edges
-  function updateArrowDisabledState() {
-    const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-    if (carousel.scrollLeft <= EDGE_EPS) leftBtn.setAttribute("disabled", "");
-    else leftBtn.removeAttribute("disabled");
+ function updateArrowDisabledState() {
+  const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+  const current = Math.round(carousel.scrollLeft);
 
-    if (carousel.scrollLeft >= maxScrollLeft - EDGE_EPS) rightBtn.setAttribute("disabled", "");
-    else rightBtn.removeAttribute("disabled");
+  // Use a slightly higher epsilon to tolerate subpixel rounding
+  const EPS = 4;
+
+  if (current <= EPS) {
+    leftBtn.setAttribute("disabled", "");
+  } else {
+    leftBtn.removeAttribute("disabled");
   }
+
+  if (current >= maxScrollLeft - EPS) {
+    rightBtn.setAttribute("disabled", "");
+  } else {
+    rightBtn.removeAttribute("disabled");
+  }
+}
 
   // Scroll helpers
   function smoothScrollBy(px) {

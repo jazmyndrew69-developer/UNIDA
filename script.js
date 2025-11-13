@@ -174,6 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let autoScrollPaused = false;
   let rafId = null;
   let lastRAFTime = null;
+  let direction = "right"; // ping-pong direction tracker
 
   // Utility: show arrows (add class to wrapper), and schedule hide
   function showArrows() {
@@ -195,9 +196,22 @@ document.addEventListener("DOMContentLoaded", () => {
     rightBtn.setAttribute("tabindex", "-1");
   }
 
- function updateArrowDisabledState() {
+ // --- Improved arrow state + ping-pong support ---
+function updateArrowDisabledState() {
   const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
   const current = Math.round(carousel.scrollLeft);
+  const EPS = 6;
+
+  const atStart = current <= EPS;
+  const atEnd = current >= maxScrollLeft - EPS;
+
+  if (atStart) leftBtn.setAttribute("disabled", "");
+  else leftBtn.removeAttribute("disabled");
+
+  if (atEnd) rightBtn.setAttribute("disabled", "");
+  else rightBtn.removeAttribute("disabled");
+}
+
 
   // Use a slightly higher epsilon to tolerate subpixel rounding
   const EPS = 4;
@@ -241,16 +255,23 @@ document.addEventListener("DOMContentLoaded", () => {
     lastRAFTime = timestamp;
 
     if (!autoScrollPaused) {
-      const pxToScroll = (AUTO_SCROLL_SPEED_PX_PER_SEC * dt) / 1000;
-      // If at end, smoothly snap back to start and continue
       const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-      if (carousel.scrollLeft + pxToScroll >= maxScrollLeft - EDGE_EPS) {
-        // Jump smoothly back to 0
-        carousel.scrollTo({ left: 0, behavior: "smooth" });
+      // --- Ping-pong auto-scroll ---
+      if (direction === "right") {
+  if (carousel.scrollLeft + pxToScroll >= maxScrollLeft - EDGE_EPS) {
+    direction = "left";
+  } else {
+    carousel.scrollLeft += pxToScroll;
+  }
       } else {
-        carousel.scrollLeft += pxToScroll;
+      if (carousel.scrollLeft - pxToScroll <= 0 + EDGE_EPS) {
+      direction = "right";
+      } else {
+     carousel.scrollLeft -= pxToScroll;
       }
-      updateArrowDisabledState();
+     }
+     updateArrowDisabledState();
+
     }
 
     rafId = requestAnimationFrame(autoStep);
@@ -271,28 +292,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Pointer drag support (mouse + touch)
-  carousel.addEventListener("pointerdown", (e) => {
-    isPointerDown = true;
-    carousel.setPointerCapture(e.pointerId);
-    startX = e.clientX;
-    startScrollLeft = carousel.scrollLeft;
-    onUserInteraction();
-  });
+ // --- Arrow clicks (manual scrolling) ---
+leftBtn.addEventListener("click", () => {
+  onUserInteraction();
+  carousel.scrollBy({ left: -300, behavior: "smooth" });
+  setTimeout(updateArrowDisabledState, 650);
+});
 
-  carousel.addEventListener("pointermove", (e) => {
-    if (!isPointerDown) return;
-    const dx = e.clientX - startX;
-    carousel.scrollLeft = startScrollLeft - dx;
-    updateArrowDisabledState();
-  });
+rightBtn.addEventListener("click", () => {
+  onUserInteraction();
+  carousel.scrollBy({ left: 300, behavior: "smooth" });
+  setTimeout(updateArrowDisabledState, 650);
+});
 
-  carousel.addEventListener("pointerup", (e) => {
-    isPointerDown = false;
-    try { carousel.releasePointerCapture(e.pointerId); } catch (err) {}
-    onUserInteraction();
-  });
-
-  carousel.addEventListener("pointerup", () => updateArrowDisabledState());
+carousel.addEventListener("pointerup", () => {
+  setTimeout(updateArrowDisabledState, 400);
+});
+carousel.addEventListener("scrollend", updateArrowDisabledState);
 
   carousel.addEventListener("pointercancel", () => {
     isPointerDown = false;
@@ -376,6 +392,9 @@ rightBtn.addEventListener("click", () => {
   window.addEventListener("pagehide", () => {
     if (rafId) cancelAnimationFrame(rafId);
   });
+  
+  // Guarantee proper arrow state on init
+requestAnimationFrame(updateArrowDisabledState);
 
 })();
 

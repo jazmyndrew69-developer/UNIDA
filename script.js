@@ -78,5 +78,33 @@
   });
 })();
 
+
+// === About page fade-in + parallax ===
+document.addEventListener("DOMContentLoaded", () => {
+  const img = document.querySelector(".about-img");
+  const text = document.querySelector(".about-text");
+
+  if (img && text) {
+    // Reveal animation when in viewport
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          img.classList.add("reveal");
+          text.classList.add("reveal");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(img);
+    observer.observe(text);
+
+    // Parallax motion on scroll (subtle)
+    window.addEventListener("scroll", () => {
+      const offset = window.scrollY * 0.08; // 8% scroll speed
+      img.style.setProperty("--parallax-offset", `${offset}px`);
+    });
+  }
+});
+
 // Activate Lucide icons globally
 if (window.lucide) lucide.createIcons();

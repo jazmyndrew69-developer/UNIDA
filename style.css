@@ -259,3 +259,47 @@ footer.footer {
     text-align: center;
   }
 }
+
+/* === About Section Cinematic Motion === */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Start hidden; revealed by JS */
+.about-img,
+.about-text {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.about-img.reveal {
+  animation: fadeInLeft 1s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.about-text.reveal {
+  animation: fadeInRight 1s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* Gentle parallax effect */
+.about-img.parallax {
+  transform: translateY(var(--parallax-offset, 0));
+}

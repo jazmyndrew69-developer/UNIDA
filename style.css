@@ -292,14 +292,40 @@ footer.footer {
 }
 
 .about-img.reveal {
-  animation: fadeInLeft 1s cubic-bezier(.16,1,.3,1) forwards;
+  animation: fadeInLeft 1.4s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 .about-text.reveal {
-  animation: fadeInRight 1s cubic-bezier(.16,1,.3,1) forwards;
+  animation: fadeInRight 1.4s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 /* Gentle parallax effect */
 .about-img.parallax {
+  transform: translateY(var(--parallax-offset, 0));
+}
+
+/* === Services & Projects Fade-in Motion === */
+
+/* Use same reveal behavior for cards */
+.card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+.card.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  box-shadow: 0 6px 28px rgba(255, 197, 217, 0.08);
+}
+
+
+/* Optional: parallax effect for cards when scrolling */
+.card.parallax {
   transform: translateY(var(--parallax-offset, 0));
 }

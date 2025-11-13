@@ -100,8 +100,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Parallax motion on scroll (subtle)
     window.addEventListener("scroll", () => {
-      const offset = window.scrollY * 0.08; // 8% scroll speed
+      const offset = window.scrollY * 0.05; // 8% scroll speed
       img.style.setProperty("--parallax-offset", `${offset}px`);
+    });
+  }
+});
+
+
+// === Global fade-in + parallax for About, Services, Projects ===
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeTargets = document.querySelectorAll(
+    ".about-img, .about-text, .card"
+  );
+
+  if (fadeTargets.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    fadeTargets.forEach((el) => observer.observe(el));
+
+    // Subtle parallax for large screens
+    window.addEventListener("scroll", () => {
+      const offset = window.scrollY * 0.06;
+      fadeTargets.forEach((el) => {
+        el.style.setProperty("--parallax-offset", `${offset}px`);
+      });
     });
   }
 });

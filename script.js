@@ -292,6 +292,8 @@ document.addEventListener("DOMContentLoaded", () => {
     onUserInteraction();
   });
 
+  carousel.addEventListener("pointerup", () => updateArrowDisabledState());
+
   carousel.addEventListener("pointercancel", () => {
     isPointerDown = false;
   });
@@ -315,15 +317,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Arrow clicks (manual scrolling)
-  leftBtn.addEventListener("click", () => {
-    smoothScrollBy(-300);
-    onUserInteraction();
-  });
-  rightBtn.addEventListener("click", () => {
-    smoothScrollBy(300);
-    onUserInteraction();
-  });
+  // Arrow clicks (manual scrolling, with proper recheck)
+leftBtn.addEventListener("click", () => {
+  smoothScrollBy(-300);
+  onUserInteraction();
+  setTimeout(updateArrowDisabledState, 600); // ✅ added: ensures left arrow re-enables dynamically
+});
+
+rightBtn.addEventListener("click", () => {
+  smoothScrollBy(300);
+  onUserInteraction();
+  setTimeout(updateArrowDisabledState, 600);
+});
+
 
   // Make cards clickable (maintains your previous project-card behavior)
   (function clickableCards() {

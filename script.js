@@ -137,5 +137,231 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* ============================================================
+   Projects Carousel JS
+   - Auto-scroll showcase (rAF)
+   - Pause on interaction (hover, pointer, touch, keyboard)
+   - Mouse drag / touch swipe
+   - Keyboard left/right
+   - Fade-in/out arrows with idle timer
+   - Edge detection disables arrows
+   Notes: This code is defensive: it runs only if #projects-carousel exists.
+   ============================================================ */
+
+(function projectsCarouselModule() {
+  const carousel = document.getElementById("projects-carousel");
+  if (!carousel) return; // nothing to do on other pages
+
+  // Configurable constants
+  const AUTO_SCROLL_SPEED_PX_PER_SEC = 50; // px per second (≈ 2.5px per 50ms)
+  const RAF_MIN_INTERVAL_MS = 16; // ~60fps
+  const IDLE_TIMEOUT_MS = 5000; // resume auto-scroll after 5s of inactivity
+  const ARROW_HIDE_DELAY_MS = 3000; // hide arrows 3s after last interaction
+  const EDGE_EPS = 1; // tolerance for edge detection
+
+  // Elements
+  const wrapper = document.getElementById("projects-wrapper");
+  const leftBtn = document.getElementById("carousel-left");
+  const rightBtn = document.getElementById("carousel-right");
+
+  // State
+  let isPointerDown = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+  let lastInteractionAt = Date.now();
+  let lastActivityTimeout = null;
+  let arrowHideTimeout = null;
+  let autoScrollPaused = false;
+  let rafId = null;
+  let lastRAFTime = null;
+
+  // Utility: show arrows (add class to wrapper), and schedule hide
+  function showArrows() {
+    wrapper.classList.add("show-arrows");
+    leftBtn.setAttribute("aria-hidden", "false");
+    rightBtn.setAttribute("aria-hidden", "false");
+    leftBtn.removeAttribute("tabindex");
+    rightBtn.removeAttribute("tabindex");
+
+    if (arrowHideTimeout) clearTimeout(arrowHideTimeout);
+    arrowHideTimeout = setTimeout(hideArrows, ARROW_HIDE_DELAY_MS);
+  }
+
+  function hideArrows() {
+    wrapper.classList.remove("show-arrows");
+    leftBtn.setAttribute("aria-hidden", "true");
+    rightBtn.setAttribute("aria-hidden", "true");
+    leftBtn.setAttribute("tabindex", "-1");
+    rightBtn.setAttribute("tabindex", "-1");
+  }
+
+  // Update arrow disabled state depending on scroll edges
+  function updateArrowDisabledState() {
+    const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+    if (carousel.scrollLeft <= EDGE_EPS) leftBtn.setAttribute("disabled", "");
+    else leftBtn.removeAttribute("disabled");
+
+    if (carousel.scrollLeft >= maxScrollLeft - EDGE_EPS) rightBtn.setAttribute("disabled", "");
+    else rightBtn.removeAttribute("disabled");
+  }
+
+  // Scroll helpers
+  function smoothScrollBy(px) {
+    carousel.scrollBy({ left: px, behavior: "smooth" });
+  }
+
+  // Auto-scroll using requestAnimationFrame
+  function startAutoScroll() {
+    if (rafId) return;
+    lastRAFTime = null;
+    autoScrollPaused = false;
+    rafId = requestAnimationFrame(autoStep);
+  }
+
+  function stopAutoScroll() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    lastRAFTime = null;
+    autoScrollPaused = true;
+  }
+
+  function autoStep(timestamp) {
+    if (!lastRAFTime) lastRAFTime = timestamp;
+    const dt = timestamp - lastRAFTime;
+    lastRAFTime = timestamp;
+
+    if (!autoScrollPaused) {
+      const pxToScroll = (AUTO_SCROLL_SPEED_PX_PER_SEC * dt) / 1000;
+      // If at end, smoothly snap back to start and continue
+      const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+      if (carousel.scrollLeft + pxToScroll >= maxScrollLeft - EDGE_EPS) {
+        // Jump smoothly back to 0
+        carousel.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        carousel.scrollLeft += pxToScroll;
+      }
+      updateArrowDisabledState();
+    }
+
+    rafId = requestAnimationFrame(autoStep);
+  }
+
+  // Interaction handlers: pause auto-scroll and show arrows, then resume after idle
+  function onUserInteraction() {
+    lastInteractionAt = Date.now();
+    showArrows();
+    stopAutoScroll();
+
+    if (lastActivityTimeout) clearTimeout(lastActivityTimeout);
+    lastActivityTimeout = setTimeout(() => {
+      // resume only if no new interactions
+      const since = Date.now() - lastInteractionAt;
+      if (since >= IDLE_TIMEOUT_MS) startAutoScroll();
+    }, IDLE_TIMEOUT_MS + 50);
+  }
+
+  // Pointer drag support (mouse + touch)
+  carousel.addEventListener("pointerdown", (e) => {
+    isPointerDown = true;
+    carousel.setPointerCapture(e.pointerId);
+    startX = e.clientX;
+    startScrollLeft = carousel.scrollLeft;
+    onUserInteraction();
+  });
+
+  carousel.addEventListener("pointermove", (e) => {
+    if (!isPointerDown) return;
+    const dx = e.clientX - startX;
+    carousel.scrollLeft = startScrollLeft - dx;
+    updateArrowDisabledState();
+  });
+
+  carousel.addEventListener("pointerup", (e) => {
+    isPointerDown = false;
+    try { carousel.releasePointerCapture(e.pointerId); } catch (err) {}
+    onUserInteraction();
+  });
+
+  carousel.addEventListener("pointercancel", () => {
+    isPointerDown = false;
+  });
+
+  // Hover/focus interactions
+  wrapper.addEventListener("mouseenter", onUserInteraction);
+  wrapper.addEventListener("mousemove", onUserInteraction);
+  wrapper.addEventListener("touchstart", onUserInteraction, {passive:true});
+  wrapper.addEventListener("focusin", onUserInteraction);
+
+  // Keyboard support when carousel focused
+  carousel.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft" || e.key === "Left") {
+      e.preventDefault();
+      smoothScrollBy(-300);
+      onUserInteraction();
+    } else if (e.key === "ArrowRight" || e.key === "Right") {
+      e.preventDefault();
+      smoothScrollBy(300);
+      onUserInteraction();
+    }
+  });
+
+  // Arrow clicks (manual scrolling)
+  leftBtn.addEventListener("click", () => {
+    smoothScrollBy(-300);
+    onUserInteraction();
+  });
+  rightBtn.addEventListener("click", () => {
+    smoothScrollBy(300);
+    onUserInteraction();
+  });
+
+  // Make cards clickable (maintains your previous project-card behavior)
+  (function clickableCards() {
+    const cards = carousel.querySelectorAll(".project-card");
+    cards.forEach(card => {
+      const url = card.dataset.link || "#";
+      // if user clicks a real <a> inside card let it handle it
+      card.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (a) return;
+        if (url && url !== "#") window.open(url, "_blank", "noopener");
+      });
+      card.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" || e.keyCode === 13) card.click();
+      });
+    });
+  })();
+
+  // Arrow hide/show behavior: show on scroll as well
+  let scrollTimer = null;
+  carousel.addEventListener("scroll", () => {
+    onUserInteraction();
+    if (scrollTimer) clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      updateArrowDisabledState();
+    }, 120);
+  });
+
+  // Initial state
+  updateArrowDisabledState();
+  hideArrows(); // default hidden
+  startAutoScroll(); // begin auto-scroll after load
+
+  // Ensure arrows disabled state updates when window resizes or content changes
+  window.addEventListener("resize", () => {
+    updateArrowDisabledState();
+    onUserInteraction();
+  });
+
+  // Accessibility: show arrows when user tabs into carousel
+  carousel.addEventListener("focus", showArrows);
+
+  // Clean up when leaving page (avoid rAF running indefinitely)
+  window.addEventListener("pagehide", () => {
+    if (rafId) cancelAnimationFrame(rafId);
+  });
+
+})();
+
 // Activate Lucide icons globally
 if (window.lucide) lucide.createIcons();

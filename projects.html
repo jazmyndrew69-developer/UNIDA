@@ -1,73 +1,110 @@
 <!--
-  Creation • projects.html
-  Changes: All three project cards are fully clickable (hand cursor + keyboard).
-  Left/right use data-link="#" placeholders; middle keeps its original WhatsApp/demo link if provided.
+  projects.html
+  Added: Horizontal auto-scrolling carousel for Projects section.
+  Notes: Carousel markup uses role="list" and role="listitem" for accessibility.
+  Keep this file at repo root (/projects.html).
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creation • Projects</title>
 
+  <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
-  <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Icon library (kept if you're using lucide elsewhere) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
   <!-- CHERRY BLOSSOM BG + PETALS -->
   <div class="hero-bg"></div>
   <div id="petals"></div>
 
-
+  <!-- NAVIGATION -->
   <header class="nav" role="navigation" aria-label="Primary">
     <div class="brand">Creation</div>
     <nav>
       <a class="navlink" href="index.html">Home</a>
-      <a class="navlink" href="about.html" aria-label="About (placeholder)">About</a>
+      <a class="navlink" href="about.html">About</a>
       <a class="navlink" href="services.html">Services</a>
       <a class="navlink" href="projects.html" aria-current="page">Projects</a>
-      <a class="navlink" href="index.html#contact">Contact</a>
+      <a class="navlink" href="contact.html">Contact</a>
     </nav>
   </header>
 
-  <main class="section scene-like" id="scene-projects" aria-labelledby="proj-title">
-    <div class="section-center">
-      <h2 id="proj-title">Projects</h2>
+  <main class="section section-center" id="scene-projects" aria-labelledby="proj-title">
+    <h2 id="proj-title">Projects</h2>
 
-      <div class="cards">
-        <!-- LEFT CARD -->
-        <article class="card pastel project-card" tabindex="0"
-          data-link="#" aria-label="Open Astral Heights (replace with final URL)">
-          <!-- TODO: replace data-link with final live URL -->
+    <!-- ===== CAROUSEL WRAPPER =====
+         role="region" provides an accessible label,
+         role="list" and role="listitem" implemented on items.
+    -->
+    <div class="projects-wrapper" id="projects-wrapper">
+      <!-- Left arrow -->
+      <button class="carousel-arrow btn-arrow left" id="carousel-left" aria-label="Scroll left" aria-hidden="true" tabindex="-1">
+        <span class="arrow-inner" aria-hidden="true">‹</span>
+      </button>
+
+      <!-- Scroll container -->
+      <div class="projects-carousel"
+           id="projects-carousel"
+           role="list"
+           aria-label="Projects carousel"
+           tabindex="0">
+        <!-- Items: each project card acts as a listitem -->
+        <article class="card pastel project-card" role="listitem" data-link="#" tabindex="0" aria-label="Astral Heights — placeholder link">
           <img src="assets/house.jpg" alt="Astral Heights — luxury real-estate landing"/>
           <h3>Astral Heights</h3>
           <p>Luxury Real-estate</p>
         </article>
 
-        <!-- MIDDLE CARD (demo link retained or WhatsApp if that was your original behavior) -->
-        <article class="card pastel project-card" tabindex="0"
-          data-link="https://preview--cinematic-finance-forge.lovable.app/">
+        <article class="card pastel project-card" role="listitem" data-link="https://preview--cinematic-finance-forge.lovable.app/" tabindex="0" aria-label="NEXUS project — opens in new tab">
           <img src="assets/ecom.jpg" alt="NEXUS — e-commerce showcase"/>
           <h3>NEXUS</h3>
           <p>E-commerce showcase</p>
         </article>
 
-        <!-- RIGHT CARD -->
-        <article class="card pastel project-card" tabindex="0"
-          data-link="https://armizor-neural-nexus-horizon.static.hf.space/index.html">
+        <article class="card pastel project-card" role="listitem" data-link="https://armizor-neural-nexus-horizon.static.hf.space/index.html" tabindex="0" aria-label="NEURALFRAME project — opens in new tab">
           <img src="assets/ai-eco.jpg" alt="NEURALFRAME — AI cognition system"/>
           <h3>NEURALFRAME</h3>
           <p>AI Cognition system</p>
         </article>
+
+        <!-- (Duplicate or add more cards as needed; this is horizontal list so more items will scroll) -->
       </div>
+
+      <!-- Right arrow -->
+      <button class="carousel-arrow btn-arrow right" id="carousel-right" aria-label="Scroll right" aria-hidden="true" tabindex="-1">
+        <span class="arrow-inner" aria-hidden="true">›</span>
+      </button>
     </div>
+
+    <!-- Small hint / accessibility text -->
+    <p style="margin-top:12px; opacity:.65; font-size:.92rem;">Tip: hover or use keyboard arrows to navigate. Swipe on touch devices.</p>
   </main>
 
-  
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-left">
+      <h3>Creation</h3>
+      <p>Luxury web experiences with quiet precision.</p>
+      <span>jazmyndrew69@gmail.com</span>
+      <span>+91&nbsp;9832081719</span>
+    </div>
 
+    <div class="footer-right">
+      <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email"><i data-lucide="mail"></i></a>
+      <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+      <a class="footer-icon" href="https://www.fiverr.com/" target="_blank" rel="noopener" aria-label="Fiverr"><i data-lucide="briefcase"></i></a>
+      <a class="footer-icon" href="https://www.upwork.com/" target="_blank" rel="noopener" aria-label="Upwork"><i data-lucide="globe-2"></i></a>
+    </div>
+  </footer>
+
+  <!-- Script: this file contains carousel logic; append to your master script or replace a section -->
   <script src="script.js"></script>
 </body>
 </html>

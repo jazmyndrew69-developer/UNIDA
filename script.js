@@ -243,16 +243,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   window.addEventListener("resize", updateArrowDisabledState);
 
-  /* --- Init --- */
-  updateArrowDisabledState();
-  hideArrows();
-  startAutoScroll();
+ function updateArrowDisabledState() {
+  if (!leftBtn || !rightBtn) return;
+  const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+  const current = Math.round(carousel.scrollLeft);
+  const EPS = 2;
 
-  // Cleanup on page leave
-  window.addEventListener("pagehide", () => {
-    if (rafId) cancelAnimationFrame(rafId);
-  });
-})();
+  const atStart = current <= EPS;
+  const atEnd = current >= maxScrollLeft - EPS;
+
+  leftBtn.style.opacity = atStart ? "0.2" : "1";
+  leftBtn.disabled = atStart;
+
+  rightBtn.style.opacity = atEnd ? "0.2" : "1";
+  rightBtn.disabled = atEnd;
+}
 
 /* ===== LUCIDE ICONS ===== */
 if (window.lucide) lucide.createIcons();

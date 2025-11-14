@@ -1,7 +1,7 @@
 <!--
-  Creation • index.html (Home page only)
-  Purpose: Hero-only homepage with cherry blossom background
-  All other sections (About, Services, Projects, Contact) are separate pages
+  Creation • index.html
+  Notes: Hero-only homepage with CTA buttons linking to projects & services.
+  Kept design and styles intact. Petals + hero background included.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -10,20 +10,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creation • Home</title>
 
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap"
-    rel="stylesheet"
- />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- Icon Library -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
 </head>
-
 <body>
+
   <!-- CHERRY BLOSSOM BG + PETALS -->
   <div class="hero-bg"></div>
-  <div id="petals"></div>
+  <div id="petals" aria-hidden="true"></div>
 
   <!-- NAVIGATION -->
   <header class="nav" role="navigation" aria-label="Primary">
@@ -38,7 +36,7 @@
   </header>
 
   <!-- HERO -->
-  <main class="hero" id="top">
+  <main class="hero" id="top" role="main">
     <div class="centerbox">
       <h1 class="brand-title">Hey! You're in Jazmyn’s Studio</h1>
 
@@ -49,7 +47,7 @@
 
       <p class="tagline">Elegance. Engineered. Websites that feel expensive.</p>
 
-      <!-- CTA BUTTONS -->
+      <!-- CTA BUTTONS (use existing btn styles) -->
       <div class="cta-row" role="group" aria-label="Primary actions">
         <a class="btn primary" href="projects.html">View Projects</a>
         <a class="btn ghost" href="services.html">View Services</a>
@@ -57,8 +55,8 @@
     </div>
   </main>
 
-  <!-- (Optional) FOOTER -->
-  <footer class="footer">
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
     <div class="footer-left">
       <h3>Creation</h3>
       <p>Luxury web experiences with quiet precision.</p>
@@ -66,29 +64,13 @@
       <span>+91&nbsp;9832081719</span>
     </div>
 
-   <div class="footer-right">
-  <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
-    <i data-lucide="instagram"></i>
-  </a>
-
-  <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email">
-    <i data-lucide="mail"></i>
-  </a>
-
-  <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <i data-lucide="message-circle"></i>
-  </a>
-
-  <a class="footer-icon" href="https://www.fiverr.com/" target="_blank" rel="noopener" aria-label="Fiverr">
-    <i data-lucide="briefcase"></i>
-  </a>
-
-  <a class="footer-icon" href="https://www.upwork.com/" target="_blank" rel="noopener" aria-label="Upwork">
-    <i data-lucide="globe-2"></i>
-  </a>
-</div>
-
-
+    <div class="footer-right">
+      <a class="footer-icon" href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+      <a class="footer-icon" href="mailto:reply.uneeda@protonmail.com" aria-label="Email"><i data-lucide="mail"></i></a>
+      <a class="footer-icon" href="https://wa.me/919832081719" target="_blank" rel="noopener" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+      <a class="footer-icon" href="https://www.fiverr.com/" target="_blank" rel="noopener" aria-label="Fiverr"><i data-lucide="briefcase"></i></a>
+      <a class="footer-icon" href="https://www.upwork.com/" target="_blank" rel="noopener" aria-label="Upwork"><i data-lucide="globe-2"></i></a>
+    </div>
   </footer>
 
   <script src="script.js"></script>

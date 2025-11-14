@@ -1,8 +1,6 @@
 /*
-  Creation • script.js (final clean version)
-  Purpose: unified JS for all pages
-  Features: role toggle, petals, fade/parallax, clickable cards, form prefills,
-  Lucide icons, and ping-pong project carousel.
+  Creation • script.js (stable final)
+  All behavior: role toggle, petals, clickables, services, fade/parallax, projects carousel, lucide icons.
 */
 
 /* ===== ROLE TOGGLE ===== */
@@ -17,11 +15,10 @@
   }, 2600);
 })();
 
-/* ===== CHERRY BLOSSOM PETALS ===== */
+/* ===== PETALS ===== */
 (function petals() {
   const container = document.getElementById("petals");
   if (!container) return;
-
   function createPetal() {
     const petal = document.createElement("div");
     petal.className = "petal";
@@ -41,43 +38,46 @@
     if (!url) return;
     card.style.cursor = "pointer";
     card.addEventListener("click", e => {
-      if (e.target.closest("a")) return; // don't override inner links
+      if (e.target.closest("a")) return;
       window.open(url, "_blank", "noopener");
     });
-    card.addEventListener("keypress", e => {
-      if (e.key === "Enter") card.click();
-    });
+    card.addEventListener("keypress", e => { if (e.key === "Enter") card.click(); });
   });
 })();
 
-/* ===== SERVICES PREFILL HANDLER ===== */
-(function servicePlans() {
-  const ENTRY_ID = null; // e.g., "entry.123456789" (set if Google Form supports it)
-  const buttons = document.querySelectorAll(".btn-start[data-plan]");
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
+/* ===== SERVICES GET STARTED (open form) ===== */
+(function serviceButtons() {
+  const FORM_URL = "https://forms.gle/ayJHG2n686WdVC9W7";
+  document.querySelectorAll(".btn-start").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      // open form in new tab
+      e.preventDefault();
+      window.open(btn.href || FORM_URL, "_blank", "noopener");
+      // mark for potential return behavior
       sessionStorage.setItem("form-opened", "1");
-      if (!ENTRY_ID) return;
-      const base = new URL(btn.href);
-      base.searchParams.set(ENTRY_ID, btn.dataset.plan);
-      btn.href = base.toString();
     });
+  });
+
+  // optional: jump to contact if returning
+  window.addEventListener("focus", () => {
+    if (sessionStorage.getItem("form-opened") === "1") {
+      sessionStorage.removeItem("form-opened");
+      // if contact page exists, navigate there
+      if (location.pathname.endsWith("index.html")) {
+        window.location.href = "contact.html";
+      }
+    }
   });
 })();
 
-/* ===== ABOUT / SERVICES / PROJECTS FADE-IN + PARALLAX ===== */
+/* ===== FADE-IN + PARALLAX ===== */
 document.addEventListener("DOMContentLoaded", () => {
   const fadeTargets = document.querySelectorAll(".about-img, .about-text, .card");
   if (!fadeTargets.length) return;
-
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("reveal");
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("reveal"); });
   }, { threshold: 0.2 });
-
   fadeTargets.forEach(el => observer.observe(el));
-
   window.addEventListener("scroll", () => {
     const offset = window.scrollY * 0.06;
     fadeTargets.forEach(el => el.style.setProperty("--parallax-offset", `${offset}px`));
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================================================
-   PROJECTS CAROUSEL
+   Projects Carousel (ping-pong), arrows, drag, keyboard
    ============================================================ */
 (function projectsCarouselModule() {
   const carousel = document.getElementById("projects-carousel");
@@ -95,13 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const leftBtn = document.getElementById("carousel-left");
   const rightBtn = document.getElementById("carousel-right");
 
-  // config
   const AUTO_SCROLL_SPEED_PX_PER_SEC = 50;
   const IDLE_TIMEOUT_MS = 5000;
   const ARROW_HIDE_DELAY_MS = 3000;
   const EDGE_EPS = 2;
 
-  // state
   let direction = "right";
   let rafId = null;
   let lastRAFTime = null;
@@ -110,36 +108,37 @@ document.addEventListener("DOMContentLoaded", () => {
   let resumeTimeout = null;
   let autoScrollPaused = false;
 
-  /* --- Arrow visibility --- */
   function showArrows() {
-    wrapper.classList.add("show-arrows");
+    if (wrapper) wrapper.classList.add("show-arrows");
     [leftBtn, rightBtn].forEach(b => {
+      if (!b) return;
       b.setAttribute("aria-hidden", "false");
       b.removeAttribute("tabindex");
     });
     clearTimeout(arrowHideTimeout);
     arrowHideTimeout = setTimeout(hideArrows, ARROW_HIDE_DELAY_MS);
   }
-
   function hideArrows() {
-    wrapper.classList.remove("show-arrows");
+    if (wrapper) wrapper.classList.remove("show-arrows");
     [leftBtn, rightBtn].forEach(b => {
+      if (!b) return;
       b.setAttribute("aria-hidden", "true");
       b.setAttribute("tabindex", "-1");
     });
   }
 
-  /* --- Disable arrows at edges --- */
   function updateArrowDisabledState() {
+    if (!leftBtn || !rightBtn) return;
     const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
     const current = Math.round(carousel.scrollLeft);
     const atStart = current <= EDGE_EPS;
     const atEnd = current >= maxScrollLeft - EDGE_EPS;
-    atStart ? leftBtn.setAttribute("disabled", "") : leftBtn.removeAttribute("disabled");
-    atEnd ? rightBtn.setAttribute("disabled", "") : rightBtn.removeAttribute("disabled");
+    leftBtn.style.opacity = atStart ? "0.2" : "1";
+    leftBtn.disabled = atStart;
+    rightBtn.style.opacity = atEnd ? "0.2" : "1";
+    rightBtn.disabled = atEnd;
   }
 
-  /* --- Auto-scroll logic --- */
   function autoStep(timestamp) {
     if (!lastRAFTime) lastRAFTime = timestamp;
     const dt = timestamp - lastRAFTime;
@@ -150,19 +149,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const pxToScroll = (AUTO_SCROLL_SPEED_PX_PER_SEC * dt) / 1000;
 
       if (direction === "right") {
-        if (carousel.scrollLeft + pxToScroll >= maxScrollLeft - EDGE_EPS)
-          direction = "left";
-        else
-          carousel.scrollLeft += pxToScroll;
+        if (carousel.scrollLeft + pxToScroll >= maxScrollLeft - EDGE_EPS) direction = "left";
+        else carousel.scrollLeft += pxToScroll;
       } else {
-        if (carousel.scrollLeft - pxToScroll <= 0 + EDGE_EPS)
-          direction = "right";
-        else
-          carousel.scrollLeft -= pxToScroll;
+        if (carousel.scrollLeft - pxToScroll <= EDGE_EPS) direction = "right";
+        else carousel.scrollLeft -= pxToScroll;
       }
       updateArrowDisabledState();
     }
-
     rafId = requestAnimationFrame(autoStep);
   }
 
@@ -172,14 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
     lastRAFTime = null;
     rafId = requestAnimationFrame(autoStep);
   }
-
   function stopAutoScroll() {
     autoScrollPaused = true;
     if (rafId) cancelAnimationFrame(rafId);
     rafId = null;
   }
 
-  /* --- User interaction pause/resume --- */
   function onUserInteraction() {
     lastInteractionAt = Date.now();
     showArrows();
@@ -190,74 +182,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }, IDLE_TIMEOUT_MS);
   }
 
-  /* --- Manual scroll (arrows) --- */
-  leftBtn.addEventListener("click", () => {
-    carousel.scrollBy({ left: -300, behavior: "smooth" });
-    onUserInteraction();
-    setTimeout(updateArrowDisabledState, 600);
-  });
-  rightBtn.addEventListener("click", () => {
-    carousel.scrollBy({ left: 300, behavior: "smooth" });
-    onUserInteraction();
-    setTimeout(updateArrowDisabledState, 600);
-  });
+  // arrow clicks
+  if (leftBtn) leftBtn.addEventListener("click", () => { carousel.scrollBy({ left: -300, behavior: "smooth" }); onUserInteraction(); setTimeout(updateArrowDisabledState, 600); });
+  if (rightBtn) rightBtn.addEventListener("click", () => { carousel.scrollBy({ left: 300, behavior: "smooth" }); onUserInteraction(); setTimeout(updateArrowDisabledState, 600); });
 
-  /* --- Pointer drag & touch swipe --- */
+  // pointer drag
   let isDragging = false, startX = 0, scrollStart = 0;
   carousel.addEventListener("pointerdown", e => {
-    isDragging = true;
-    carousel.setPointerCapture(e.pointerId);
-    startX = e.clientX;
-    scrollStart = carousel.scrollLeft;
-    onUserInteraction();
+    isDragging = true; carousel.setPointerCapture(e.pointerId);
+    startX = e.clientX; scrollStart = carousel.scrollLeft; onUserInteraction();
   });
-  carousel.addEventListener("pointermove", e => {
-    if (!isDragging) return;
-    carousel.scrollLeft = scrollStart - (e.clientX - startX);
-    updateArrowDisabledState();
-  });
-  carousel.addEventListener("pointerup", e => {
-    isDragging = false;
-    try { carousel.releasePointerCapture(e.pointerId); } catch {}
-    onUserInteraction();
-  });
-  carousel.addEventListener("pointercancel", () => (isDragging = false));
+  carousel.addEventListener("pointermove", e => { if (!isDragging) return; carousel.scrollLeft = scrollStart - (e.clientX - startX); updateArrowDisabledState(); });
+  carousel.addEventListener("pointerup", e => { isDragging = false; try { carousel.releasePointerCapture(e.pointerId); } catch {} onUserInteraction(); });
+  carousel.addEventListener("pointercancel", () => isDragging = false);
 
-  /* --- Keyboard arrows --- */
+  // keyboard
   carousel.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      carousel.scrollBy({ left: -300, behavior: "smooth" });
-      onUserInteraction();
-    } else if (e.key === "ArrowRight") {
-      e.preventDefault();
-      carousel.scrollBy({ left: 300, behavior: "smooth" });
-      onUserInteraction();
-    }
+    if (e.key === "ArrowLeft") { e.preventDefault(); carousel.scrollBy({ left: -300, behavior: "smooth" }); onUserInteraction(); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); carousel.scrollBy({ left: 300, behavior: "smooth" }); onUserInteraction(); }
   });
 
-  /* --- Scroll updates --- */
-  carousel.addEventListener("scroll", () => {
-    onUserInteraction();
-    updateArrowDisabledState();
-  });
+  // scroll updates
+  carousel.addEventListener("scroll", () => { onUserInteraction(); updateArrowDisabledState(); });
   window.addEventListener("resize", updateArrowDisabledState);
 
- function updateArrowDisabledState() {
-  if (!leftBtn || !rightBtn) return;
-  const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-  const current = Math.round(carousel.scrollLeft);
-  const EPS = 2;
+  // init
+  requestAnimationFrame(() => { showArrows(); setTimeout(hideArrows, 1500); updateArrowDisabledState(); });
+  startAutoScroll();
 
-  const atStart = current <= EPS;
-  const atEnd = current >= maxScrollLeft - EPS;
-
-  leftBtn.style.opacity = atStart ? "0.2" : "1";
-  leftBtn.disabled = atStart;
-
-  rightBtn.style.opacity = atEnd ? "0.2" : "1";
-  rightBtn.disabled = atEnd;
-}
+  window.addEventListener("pagehide", () => { if (rafId) cancelAnimationFrame(rafId); });
+})();
 
 /* ===== LUCIDE ICONS ===== */
 if (window.lucide) lucide.createIcons();

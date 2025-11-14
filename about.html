@@ -1,7 +1,6 @@
 <!--
   Creation • about.html
-  Purpose: Proper About page (image left, text right)
-  Matches original layout and background style
+  Keeps the original two-column layout (image left, text right).
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -19,11 +18,9 @@
 </head>
 
 <body>
-  <!-- CHERRY BLOSSOM BG + PETALS -->
   <div class="hero-bg"></div>
-  <div id="petals"></div>
+  <div id="petals" aria-hidden="true"></div>
 
-  <!-- NAVIGATION -->
   <header class="nav" role="navigation" aria-label="Primary">
     <div class="brand">Creation</div>
     <nav>
@@ -35,35 +32,32 @@
     </nav>
   </header>
 
-  <section class="about-section">
-  <div class="about-grid">
-    <div class="about-img" style="background-image: url('assets/about.jpgt.avif');"></div>
+  <main class="section about-section" id="scene-about" role="main" aria-labelledby="about-title">
+    <div class="about-grid">
+      <div class="about-img" style="background-image: url('assets/about.jpgt.avif');" role="img" aria-label="Studio workspace image"></div>
 
-    <div class="about-text">
-      <h2>Who We Are</h2>
-      <p>
-        At <strong>Creation</strong>, we merge art direction with precise engineering.
-        Every line of code and design choice is guided by our principle —
-        <em>quiet elegance, loud impact</em>.
-      </p>
+      <div class="about-text">
+        <h2 id="about-title">Who We Are</h2>
+        <p>
+          At <strong>Creation</strong>, we merge art direction with precise engineering.
+          Every line of code and design choice is guided by our principle —
+          <em>quiet elegance, loud impact</em>.
+        </p>
 
-      <ul>
-        <li>Luxury aesthetic & high legibility</li>
-        <li>Full-stack websites & custom interfaces</li>
-        <li>Optimized performance & UX precision</li>
-      </ul>
+        <ul>
+          <li>Luxury aesthetic & high legibility</li>
+          <li>Full-stack websites & custom interfaces</li>
+          <li>Optimized performance & UX precision</li>
+        </ul>
 
-      <p style="margin-top:1.4rem;opacity:.85;">
-        Technology should feel beautiful, never overwhelming.
-        Every project we deliver reflects that calm precision.
-      </p>
+        <p style="margin-top:1.4rem;opacity:.85;">
+          Technology should feel beautiful, never overwhelming. Every project we deliver reflects that calm precision.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
-
   </main>
 
- 
+  
 
   <script src="script.js"></script>
 </body>

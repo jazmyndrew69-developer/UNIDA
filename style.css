@@ -217,3 +217,70 @@ body {
   .nav { padding: 16px 5%; }
   .site-container { padding-left: 5%; padding-right: 5%; }
 }
+
+/* ------------------------------------------------------
+   FIX 2: Footer placement and section vertical alignment
+   ------------------------------------------------------ */
+
+/* Ensure every main section fills the viewport so footer anchors bottom */
+body, html {
+  min-height: 100%;
+}
+main, .section, .site-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Footer stays anchored at bottom of page content */
+.footer {
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Remove any transforms that visually lift footer above baseline */
+.footer--revealed,
+.footer:not(.footer--hidden) {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+/* Prevent footer from appearing halfway up */
+.footer--hidden {
+  transform: translateY(100%) !important;
+}
+
+/* Footer text and icons alignment refinement */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;  /* was center — caused vertical centering of icons */
+  text-align: left;
+  padding: 20px 6%;
+}
+
+.footer-left {
+  flex: 1;
+}
+
+.footer-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* CONTACT PAGE alignment correction */
+.contact-section, .contact-container, .contact-main, .contact {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertically center the contact content */
+  align-items: center;
+  text-align: center;
+}

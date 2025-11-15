@@ -284,3 +284,17 @@ main, .section, .site-container {
   align-items: center;
   text-align: center;
 }
+
+/* ------------------------------------------------------
+   FIX 3: Restrict hero background image to home page only
+   ------------------------------------------------------ */
+
+/* By default, hide the hero background image */
+.hero-bg {
+  display: none !important;
+}
+
+/* Show it only on the homepage (body#index-page) */
+body#index-page .hero-bg {
+  display: block !important;
+}

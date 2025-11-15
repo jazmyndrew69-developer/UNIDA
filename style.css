@@ -1,10 +1,10 @@
 /* ------------------------------------------------------
-   THEME / GLOBAL (preserve your look)
+   THEME / GLOBAL (preserve visual identity)
 ------------------------------------------------------ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* FIX: robust global box-sizing */
 }
 
 :root {
@@ -13,19 +13,31 @@
   --pink: #FFC5D9;
   --lavender: #C9A7EB;
   --glow: linear-gradient(135deg, var(--pink), var(--lavender));
+  --site-max: 1100px;
+  --gap: 22px;
 }
 
 body {
   font-family: "Inter", sans-serif;
   background: var(--bg);
   color: var(--ink);
-  overflow-x: hidden;
-  padding-bottom: 82px; /* reserve for fixed footer */
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* prevent horizontal scroll */
 }
 
-/* ------------------------------------------------------
-   BACKGROUND (home only)
------------------------------------------------------- */
+/* Utility container to keep content centered & avoid overflow */
+.site-container {
+  width: 100%;
+  max-width: var(--site-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+/* Background & petals */
 .hero-bg {
   position: fixed;
   inset: 0;
@@ -33,15 +45,12 @@ body {
   z-index: -3;
   filter: brightness(.65) saturate(1.1);
 }
-
-/* falling petals */
 #petals {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: -1;
 }
-
 .petal {
   position: absolute;
   top: -10vh;
@@ -53,275 +62,97 @@ body {
   filter: blur(1px);
   animation: fall linear infinite;
 }
-
 @keyframes fall {
-  to {
-    transform: translateY(110vh) translateX(40px) rotate(360deg);
-    opacity: .2;
-  }
+  to { transform: translateY(110vh) translateX(40px) rotate(360deg); opacity: .2; }
 }
 
-/* ------------------------------------------------------
-   NAVIGATION (fixed)
------------------------------------------------------- */
+/* NAV */
 .nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 0; left: 0; right: 0;
   padding: 22px 6%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 50;
+  z-index: 60;
 }
+.nav .brand { font-family: "Playfair Display", serif; font-weight: 800; font-size: 28px; }
+.nav a { color: var(--ink); text-decoration: none; margin-left: 22px; font-weight: 600; }
 
-.nav .brand {
-  font-family: "Playfair Display", serif;
-  font-weight: 800;
-  font-size: 28px;
-  letter-spacing: .5px;
-}
-
-.nav a {
-  color: var(--ink);
-  text-decoration: none;
-  margin-left: 22px;
-  font-weight: 600;
-}
-
-.nav a[aria-current="page"] { opacity: 1; }
-
-/* ------------------------------------------------------
-   VIEWPORT / SECTIONS
------------------------------------------------------- */
-.section {
-  min-height: calc(100vh - 120px);
-  display: flex;
-  align-items: center;
-  padding: 12vh 6%;
-}
-
-/* hero */
-.hero {
-  padding: 14vh 6% 6vh 6%;
-  text-align: center;
-}
+/* SECTIONS */
+.section { padding: 12vh 0; }
+.hero { padding: 14vh 0 6vh 0; text-align: center; }
 .centerbox { max-width: 680px; margin: 0 auto; }
 
-/* brand title */
-.brand-title {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(38px, 6vw, 72px);
-  letter-spacing: 1.6px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
+/* Typography */
+.brand-title { font-family: "Playfair Display", serif; font-size: clamp(38px, 6vw, 72px); letter-spacing: 1.6px; font-weight:700; margin-bottom:10px; }
+.toggle-wrap { margin:12px auto 6px auto; padding:6px 20px; border-radius:14px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); backdrop-filter: blur(10px); width: fit-content; }
+.toggle-role { font-size:1.1rem; font-weight:700; background: var(--glow); -webkit-background-clip: text; color: transparent; }
+.coming-soon { font-size:.85rem; opacity:.6; margin-top:4px; }
+.tagline { margin-top:14px; opacity:.9; max-width:600px; margin-inline:auto; }
 
-/* toggle pill */
-.toggle-wrap {
-  margin: 12px auto 6px auto;
-  padding: 6px 20px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.16);
-  backdrop-filter: blur(10px);
-  width: fit-content;
-}
-.toggle-role {
-  font-size: 1.1rem;
-  font-weight: 700;
-  background: var(--glow);
-  -webkit-background-clip: text;
-  color: transparent;
-}
+/* Buttons */
+.cta-row, .contact-cta { margin-top: 26px; display:flex; justify-content:center; gap:12px; }
+.btn { padding:12px 22px; border-radius:12px; font-weight:700; border:1px solid transparent; cursor:pointer; font-size:.9rem; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; }
+.btn.primary { background: var(--glow); color:#1a1a1a; }
+.btn.ghost { background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); color: var(--ink); }
 
-.coming-soon { font-size: .85rem; opacity: .6; margin-top: 4px; }
+/* ABOUT */
+.about-grid { display:grid; grid-template-columns: 1.2fr 1fr; gap:28px; max-width: var(--site-max); margin: 0 auto; align-items:center; padding: 8vh 0; }
+.about-img { background: url("assets/about.avif") center/cover no-repeat; height:380px; border-radius:16px; }
+.about-text { text-align:left; line-height:1.6; }
+.about-text h2 { font-family:"Playfair Display", serif; font-size:40px; margin-bottom:12px; }
 
-.tagline { margin-top: 14px; opacity: .9; max-width: 600px; margin-inline: auto; }
-
-.cta-row, .contact-cta {
-  margin-top: 26px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.btn {
-  padding: 12px 22px;
-  border-radius: 12px;
-  font-weight: 700;
-  border: 1px solid transparent;
-  cursor: pointer;
-  font-size: .9rem;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn.primary {
-  background: var(--glow);
-  color: #1a1a1a;
-}
-
-.btn.ghost {
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.18);
-  color: var(--ink);
-}
-
-/* ------------------------------------------------------
-   ABOUT
------------------------------------------------------- */
-.about-section { padding: 10vh 6%; }
-.about-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 28px;
-  max-width: 1100px;
-  width: 100%;
-  align-items: center;
-  margin: 0 auto;
-}
-.about-img {
-  background: url("assets/about.jpgt.avif") center/cover no-repeat;
-  height: 380px;
-  border-radius: 16px;
-  box-shadow: 0 0 40px rgba(255,255,255,0.04);
-}
-.about-text { text-align: left; line-height: 1.6; }
-.about-text h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 40px;
-  margin-bottom: 12px;
-}
-
-/* ------------------------------------------------------
-   SERVICES / PROJECTS
------------------------------------------------------- */
-.section-center {
-  text-align: center;
-  width: 90%;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.cards {
-  margin-top: 26px;
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  flex-wrap: wrap;
-}
-
-.card {
-  width: 260px;
-  padding: 22px;
-  border-radius: 16px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.18);
-  backdrop-filter: blur(8px);
-  transition: transform .3s ease;
-  text-align: left;
-}
-
+/* CARDS (services/projects) */
+.section-center { text-align:center; width:100%; max-width:var(--site-max); margin: 0 auto; padding: 8vh 0; }
+.cards { margin-top:26px; display:flex; gap:var(--gap); flex-wrap:wrap; justify-content:center; }
+.card { width:260px; padding:22px; border-radius:16px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.18); backdrop-filter: blur(8px); transition: transform .3s ease; text-align:left; }
 .card:hover { border-color: var(--pink); transform: translateY(-6px); }
+.price-badge { background: var(--glow); color:#1a1a1a; font-weight:800; padding:6px 12px; border-radius:999px; font-size:.85rem; margin-bottom:12px; }
+.card img { width:100%; border-radius:12px; margin-bottom:8px; }
 
-.price-badge {
-  background: var(--glow);
-  color: #1a1a1a;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: .85rem;
-  margin-bottom: 12px;
-}
+/* ======================================================
+   FIX: layout + carousel helpers (append only)
+   - horizontal cards-row (no vertical stacking)
+   - keyboard & touch support
+   - footer hidden behavior (index only)
+   ====================================================== */
 
-.card img { width: 100%; border-radius: 12px; margin-bottom: 8px; }
-
-/* ------------------------------------------------------
-   PROJECTS CAROUSEL STYLES (append)
------------------------------------------------------- */
-.projects-wrapper {
-  position: relative;
-  width: 100%;
-  margin-top: 18px;
+/* cards-row: horizontal single-row layout (no wrap) */
+.cards-row {
   display: flex;
-  align-items: center;
-}
-
-.projects-carousel {
-  display: flex;
-  gap: 22px;
+  flex-wrap: nowrap;       /* prevent wrapping into vertical stack */
+  gap: var(--gap);
   overflow-x: auto;
   scroll-behavior: smooth;
+  padding: 10px 6%;
   -webkit-overflow-scrolling: touch;
-  padding: 10px 18px;
-  width: 100%;
-  scrollbar-width: none;
 }
-.projects-carousel::-webkit-scrollbar { display: none; }
-
-.projects-carousel .card {
+.card-item {
   flex: 0 0 auto;
-  width: 260px;
-  cursor: pointer;
-  user-select: none;
-  touch-action: pan-y;
-  will-change: transform;
+  min-width: 300px;       /* tweakable; preserves current card appearance */
+  width: 300px;
 }
 
-.projects-carousel .card:hover { transform: translateY(-6px); transition: transform .25s ease; }
-.projects-carousel .card:focus { outline: 2px solid rgba(201,167,235,0.18); outline-offset: 4px; }
+/* Hide default scrollbar visually but allow scrolling */
+.cards-row::-webkit-scrollbar { height: 8px; }
+.cards-row::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 999px; }
 
-/* Arrow buttons */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(10,10,10,0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .35s ease, transform .22s ease, background .22s ease;
-  z-index: 5;
-}
+/* ensure card pointer and focus are obvious */
+.card-item { cursor: pointer; }
+.card-item:focus { outline: 2px solid rgba(201,167,235,0.18); outline-offset: 6px; }
 
-.projects-wrapper.show-arrows .carousel-arrow,
-.projects-wrapper:hover .carousel-arrow,
-.projects-wrapper:focus-within .carousel-arrow {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.carousel-arrow.left { left: 8px; }
-.carousel-arrow.right { right: 8px; }
-
-.carousel-arrow[disabled] { opacity: .28 !important; cursor: default; transform: scale(.98); }
-.carousel-arrow .arrow-inner { font-size: 22px; color: rgba(255,255,255,0.92); }
-
-/* small screens */
+/* Small screens: allow smaller cards but still single-row */
 @media (max-width: 420px) {
-  .projects-carousel { gap: 12px; padding: 8px 12px; }
-  .projects-carousel .card { width: min(86vw, 260px); }
-  .carousel-arrow { width: 36px; height: 36px; }
+  .card-item { min-width: 84vw; width: 84vw; }
+  .cards-row { padding-left: 12px; padding-right: 12px; gap: 12px; }
 }
 
-/* ------------------------------------------------------
-   FOOTER (refined)
------------------------------------------------------- */
+/* Footer kept in normal flow (not forced fixed).
+   On index.html it starts hidden via .footer--hidden.
+*/
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   padding: 18px 6%;
   display: flex;
@@ -332,51 +163,57 @@ body {
   backdrop-filter: blur(14px);
   font-size: 0.9rem;
   line-height: 1.3;
+  transition: transform .42s cubic-bezier(.2,.9,.2,1), opacity .4s ease;
+  z-index: 40;
 }
 
-.footer-left h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 1.4rem;
-  margin: 0 0 4px 0;
+/* Hidden state used only on index.html initially — it removes pointer events so CTAs are clickable */
+.footer--hidden {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
+/* When revealed, make sure footer sits above background but not obstruct content */
+.footer--revealed {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+  z-index: 40;
+}
+
+/* Footer left block layout */
+.footer-left h3 { font-family: "Playfair Display", serif; font-size: 1.4rem; margin:0 0 4px 0; }
 .footer-left p { margin: 0 0 6px 0; opacity: .85; }
-.footer-left span { display: block; margin: 2px 0; opacity: .75; font-size: .88rem; }
+.footer-left span { display:block; margin:2px 0; opacity:.75; font-size:.88rem; }
 
-.footer-right { display: flex; gap: 10px; }
-.footer-icon {
-  width: 34px; height: 34px; border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center;
-  color: var(--ink); font-size: .9rem; transition: .3s;
-}
+/* Footer icons */
+.footer-right { display:flex; gap:10px; }
+.footer-icon { width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:.9rem; transition:.3s; }
 .footer-icon:hover { border-color: var(--pink); color: var(--pink); }
 
-@media (max-width: 720px) {
-  .footer { flex-direction: column; text-align: center; padding: 14px 5%; gap: 10px; }
-  .footer-left, .footer-right { width: 100%; }
+/* visually-hidden toggle (screen-reader & keyboard accessible) */
+.visually-hidden-toggle {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+.visually-hidden-toggle[aria-pressed="true"] {
+  left: auto;
+  position: static;
+  margin-left: 16px;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
 }
 
-/* ------------------------------------------------------
-   Fade-in / parallax helpers
------------------------------------------------------- */
-@keyframes fadeInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes fadeInRight {
-  from { opacity: 0; transform: translateX(40px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.about-img, .about-text, .card { opacity: 0; transform: translateY(30px); transition: transform .8s ease, opacity .8s ease; }
-.about-img.reveal { animation: fadeInLeft 1s cubic-bezier(.16,1,.3,1) forwards; }
-.about-text.reveal { animation: fadeInRight 1s cubic-bezier(.16,1,.3,1) forwards; }
-.card.reveal { opacity: 1; transform: translateY(0); box-shadow: 0 6px 28px rgba(255,197,217,0.06); }
-
-/* small tweaks */
+/* small screens adjustments */
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; text-align: center; }
   .about-img { height: 300px; margin-bottom: 18px; }
   .card { width: min(290px, 100%); }
   .nav { padding: 16px 5%; }
+  .site-container { padding-left: 5%; padding-right: 5%; }
 }

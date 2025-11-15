@@ -1,6 +1,13 @@
 /*
-  Creation • script.js (stable final)
-  All behavior: role toggle, petals, clickables, services, fade/parallax, projects carousel, lucide icons.
+  script.js
+  Stable, minimal JS:
+   - role toggle
+   - cherry blossom petals (all pages, mobile friendly)
+   - clickable project cards (data-link)
+   - services Get Started buttons (open Google Form)
+   - footer reveal/hide behavior on index.html only
+   - keyboard & swipe support for .cards-row containers
+   - lucide icons initialization
 */
 
 /* ===== ROLE TOGGLE ===== */
@@ -15,10 +22,13 @@
   }, 2600);
 })();
 
-/* ===== PETALS ===== */
+/* ===== PETALS (mobile-friendly) ===== */
 (function petals() {
   const container = document.getElementById("petals");
   if (!container) return;
+
+  // lower density for narrow screens for performance
+  const interval = window.innerWidth < 420 ? 500 : 300;
   function createPetal() {
     const petal = document.createElement("div");
     petal.className = "petal";
@@ -27,12 +37,13 @@
     container.appendChild(petal);
     setTimeout(() => petal.remove(), 9000);
   }
-  setInterval(createPetal, 300);
+  setInterval(createPetal, interval);
 })();
 
-/* ===== PROJECT CARDS CLICKABLE ===== */
+/* ===== CLICKABLE PROJECT CARDS ===== */
 (function projectCards() {
-  const cards = document.querySelectorAll(".project-card[data-link]");
+  const cards = document.querySelectorAll(".project-card[data-link], .card-item.project-card[data-link]");
+  if (!cards.length) return;
   cards.forEach(card => {
     const url = card.dataset.link;
     if (!url) return;
@@ -41,176 +52,120 @@
       if (e.target.closest("a")) return;
       window.open(url, "_blank", "noopener");
     });
-    card.addEventListener("keypress", e => { if (e.key === "Enter") card.click(); });
+    card.addEventListener("keypress", e => {
+      if (e.key === "Enter") card.click();
+    });
   });
 })();
 
-/* ===== SERVICES GET STARTED (open form) ===== */
-(function serviceButtons() {
+/* ===== SERVICES: Get Started buttons open form (new tab) ===== */
+(function servicesForm() {
   const FORM_URL = "https://forms.gle/ayJHG2n686WdVC9W7";
   document.querySelectorAll(".btn-start").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      // open form in new tab
       e.preventDefault();
-      window.open(btn.href || FORM_URL, "_blank", "noopener");
-      // mark for potential return behavior
+      const href = btn.getAttribute("href") || FORM_URL;
+      window.open(href, "_blank", "noopener");
       sessionStorage.setItem("form-opened", "1");
     });
   });
+})();
 
-  // optional: jump to contact if returning
-  window.addEventListener("focus", () => {
-    if (sessionStorage.getItem("form-opened") === "1") {
-      sessionStorage.removeItem("form-opened");
-      // if contact page exists, navigate there
-      if (location.pathname.endsWith("index.html")) {
-        window.location.href = "contact.html";
+/* ===== cards-row keyboard + pointer helpers ===== */
+(function cardsRowControls() {
+  const rows = document.querySelectorAll(".cards-row");
+  if (!rows.length) return;
+
+  rows.forEach(row => {
+    // make sure row focusable
+    if (!row.hasAttribute("tabindex")) row.setAttribute("tabindex", "0");
+
+    // keyboard left/right
+    row.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        row.scrollBy({ left: -320, behavior: "smooth" });
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        row.scrollBy({ left: 320, behavior: "smooth" });
       }
-    }
+    });
+
+    // touch swipe handled by native overflow + pointer drag listeners for mouse
+    let isDown = false, startX = 0, scrollLeft = 0;
+    row.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      row.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      scrollLeft = row.scrollLeft;
+    });
+    row.addEventListener("pointermove", (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      row.scrollLeft = scrollLeft - dx;
+    });
+    row.addEventListener("pointerup", (e) => { isDown = false; try { row.releasePointerCapture(e.pointerId); } catch {} });
+    row.addEventListener("pointercancel", () => isDown = false);
   });
 })();
 
-/* ===== FADE-IN + PARALLAX ===== */
-document.addEventListener("DOMContentLoaded", () => {
-  const fadeTargets = document.querySelectorAll(".about-img, .about-text, .card");
-  if (!fadeTargets.length) return;
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("reveal"); });
-  }, { threshold: 0.2 });
-  fadeTargets.forEach(el => observer.observe(el));
-  window.addEventListener("scroll", () => {
-    const offset = window.scrollY * 0.06;
-    fadeTargets.forEach(el => el.style.setProperty("--parallax-offset", `${offset}px`));
-  });
-});
+/* ===== FIX: footer hidden/reveal behavior (index.html only) ===== */
+(function footerReveal() {
+  // only run on index page
+  if (!document.body || document.body.id !== "index-page") return;
+  const footer = document.querySelector(".footer");
+  if (!footer) return;
 
-/* ============================================================
-   Projects Carousel (ping-pong), arrows, drag, keyboard
-   ============================================================ */
-(function projectsCarouselModule() {
-  const carousel = document.getElementById("projects-carousel");
-  if (!carousel) return;
+  // initial state: .footer--hidden is in markup
+  // reveal when scrollY > 0.5 * innerHeight OR when user reaches bottom
+  const REVEAL_THRESHOLD = 0.5; // fraction of viewport height
+  let revealed = false;
+  let debounceTimer = null;
 
-  const wrapper = document.getElementById("projects-wrapper");
-  const leftBtn = document.getElementById("carousel-left");
-  const rightBtn = document.getElementById("carousel-right");
-
-  const AUTO_SCROLL_SPEED_PX_PER_SEC = 50;
-  const IDLE_TIMEOUT_MS = 5000;
-  const ARROW_HIDE_DELAY_MS = 3000;
-  const EDGE_EPS = 2;
-
-  let direction = "right";
-  let rafId = null;
-  let lastRAFTime = null;
-  let lastInteractionAt = Date.now();
-  let arrowHideTimeout = null;
-  let resumeTimeout = null;
-  let autoScrollPaused = false;
-
-  function showArrows() {
-    if (wrapper) wrapper.classList.add("show-arrows");
-    [leftBtn, rightBtn].forEach(b => {
-      if (!b) return;
-      b.setAttribute("aria-hidden", "false");
-      b.removeAttribute("tabindex");
-    });
-    clearTimeout(arrowHideTimeout);
-    arrowHideTimeout = setTimeout(hideArrows, ARROW_HIDE_DELAY_MS);
-  }
-  function hideArrows() {
-    if (wrapper) wrapper.classList.remove("show-arrows");
-    [leftBtn, rightBtn].forEach(b => {
-      if (!b) return;
-      b.setAttribute("aria-hidden", "true");
-      b.setAttribute("tabindex", "-1");
-    });
-  }
-
-  function updateArrowDisabledState() {
-    if (!leftBtn || !rightBtn) return;
-    const maxScrollLeft = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
-    const current = Math.round(carousel.scrollLeft);
-    const atStart = current <= EDGE_EPS;
-    const atEnd = current >= maxScrollLeft - EDGE_EPS;
-    leftBtn.style.opacity = atStart ? "0.2" : "1";
-    leftBtn.disabled = atStart;
-    rightBtn.style.opacity = atEnd ? "0.2" : "1";
-    rightBtn.disabled = atEnd;
-  }
-
-  function autoStep(timestamp) {
-    if (!lastRAFTime) lastRAFTime = timestamp;
-    const dt = timestamp - lastRAFTime;
-    lastRAFTime = timestamp;
-
-    if (!autoScrollPaused) {
-      const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-      const pxToScroll = (AUTO_SCROLL_SPEED_PX_PER_SEC * dt) / 1000;
-
-      if (direction === "right") {
-        if (carousel.scrollLeft + pxToScroll >= maxScrollLeft - EDGE_EPS) direction = "left";
-        else carousel.scrollLeft += pxToScroll;
-      } else {
-        if (carousel.scrollLeft - pxToScroll <= EDGE_EPS) direction = "right";
-        else carousel.scrollLeft -= pxToScroll;
-      }
-      updateArrowDisabledState();
+  function checkReveal() {
+    const sc = window.scrollY || window.pageYOffset || 0;
+    const shouldReveal = (sc > window.innerHeight * REVEAL_THRESHOLD) || ((window.innerHeight + sc) >= (document.documentElement.scrollHeight - 8));
+    if (shouldReveal && !revealed) {
+      footer.classList.remove("footer--hidden");
+      footer.classList.add("footer--revealed");
+      revealed = true;
+      // update accessible toggle if present
+      const toggle = document.getElementById("reveal-footer-btn");
+      if (toggle) toggle.setAttribute("aria-pressed", "true");
     }
-    rafId = requestAnimationFrame(autoStep);
   }
 
-  function startAutoScroll() {
-    if (rafId) return;
-    autoScrollPaused = false;
-    lastRAFTime = null;
-    rafId = requestAnimationFrame(autoStep);
-  }
-  function stopAutoScroll() {
-    autoScrollPaused = true;
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-  }
+  // debounce scroll to avoid heavy operations
+  window.addEventListener("scroll", () => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(checkReveal, 120);
+  }, { passive: true });
 
-  function onUserInteraction() {
-    lastInteractionAt = Date.now();
-    showArrows();
-    stopAutoScroll();
-    clearTimeout(resumeTimeout);
-    resumeTimeout = setTimeout(() => {
-      if (Date.now() - lastInteractionAt >= IDLE_TIMEOUT_MS) startAutoScroll();
-    }, IDLE_TIMEOUT_MS);
-  }
-
-  // arrow clicks
-  if (leftBtn) leftBtn.addEventListener("click", () => { carousel.scrollBy({ left: -300, behavior: "smooth" }); onUserInteraction(); setTimeout(updateArrowDisabledState, 600); });
-  if (rightBtn) rightBtn.addEventListener("click", () => { carousel.scrollBy({ left: 300, behavior: "smooth" }); onUserInteraction(); setTimeout(updateArrowDisabledState, 600); });
-
-  // pointer drag
-  let isDragging = false, startX = 0, scrollStart = 0;
-  carousel.addEventListener("pointerdown", e => {
-    isDragging = true; carousel.setPointerCapture(e.pointerId);
-    startX = e.clientX; scrollStart = carousel.scrollLeft; onUserInteraction();
-  });
-  carousel.addEventListener("pointermove", e => { if (!isDragging) return; carousel.scrollLeft = scrollStart - (e.clientX - startX); updateArrowDisabledState(); });
-  carousel.addEventListener("pointerup", e => { isDragging = false; try { carousel.releasePointerCapture(e.pointerId); } catch {} onUserInteraction(); });
-  carousel.addEventListener("pointercancel", () => isDragging = false);
-
-  // keyboard
-  carousel.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); carousel.scrollBy({ left: -300, behavior: "smooth" }); onUserInteraction(); }
-    else if (e.key === "ArrowRight") { e.preventDefault(); carousel.scrollBy({ left: 300, behavior: "smooth" }); onUserInteraction(); }
+  // If returning from the form (session flag), reveal footer immediately as convenience
+  window.addEventListener("focus", () => {
+    if (sessionStorage.getItem("form-opened") === "1") {
+      footer.classList.remove("footer--hidden");
+      footer.classList.add("footer--revealed");
+      sessionStorage.removeItem("form-opened");
+      revealed = true;
+    }
   });
 
-  // scroll updates
-  carousel.addEventListener("scroll", () => { onUserInteraction(); updateArrowDisabledState(); });
-  window.addEventListener("resize", updateArrowDisabledState);
+  // Accessible toggle for keyboard users — toggles reveal permanently.
+  const toggleBtn = document.getElementById("reveal-footer-btn");
+  if (toggleBtn) {
+    toggleBtn.classList.remove("visually-hidden-toggle");
+    toggleBtn.setAttribute("aria-pressed", "false");
+    toggleBtn.addEventListener("click", () => {
+      footer.classList.remove("footer--hidden");
+      footer.classList.add("footer--revealed");
+      toggleBtn.setAttribute("aria-pressed", "true");
+      // COMMENT: remove this toggle button in markup if you don't want a permanent reveal option.
+    });
+  }
 
-  // init
-  requestAnimationFrame(() => { showArrows(); setTimeout(hideArrows, 1500); updateArrowDisabledState(); });
-  startAutoScroll();
-
-  window.addEventListener("pagehide", () => { if (rafId) cancelAnimationFrame(rafId); });
+  // run once on load in case user is already scrolled
+  requestAnimationFrame(checkReveal);
 })();
 
 /* ===== LUCIDE ICONS ===== */

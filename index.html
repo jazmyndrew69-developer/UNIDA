@@ -1,26 +1,25 @@
 <!--
-  Creation • index.html
-  Notes: Hero-only homepage with CTA buttons linking to projects & services.
-  Kept design and styles intact. Petals + hero background included.
+  index.html
+  Fixed layout + hidden footer behavior added (footer hidden on load; reveals when user scrolls)
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Creation • Home</title>
 
   <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 
-  <!-- Icon Library -->
+  <!-- Icon library (lucide) -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body id="index-page">
 
-  <!-- CHERRY BLOSSOM BG + PETALS -->
-  <div class="hero-bg"></div>
+  <!-- CHERRY BLOSSOM BG + PETALS (present on all pages) -->
+  <div class="hero-bg" aria-hidden="true"></div>
   <div id="petals" aria-hidden="true"></div>
 
   <!-- NAVIGATION -->
@@ -36,7 +35,7 @@
   </header>
 
   <!-- HERO -->
-  <main class="hero" id="top" role="main">
+  <main class="hero site-container" id="top" role="main">
     <div class="centerbox">
       <h1 class="brand-title">Hey! You're in Jazmyn’s Studio</h1>
 
@@ -47,7 +46,7 @@
 
       <p class="tagline">Elegance. Engineered. Websites that feel expensive.</p>
 
-      <!-- CTA BUTTONS (use existing btn styles) -->
+      <!-- CTA buttons -->
       <div class="cta-row" role="group" aria-label="Primary actions">
         <a class="btn primary" href="projects.html">View Projects</a>
         <a class="btn ghost" href="services.html">View Services</a>
@@ -55,8 +54,10 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer" role="contentinfo">
+  <!-- Additional content can go here (keeps page tall to test footer reveal) -->
+
+  <!-- FOOTER (in normal flow; hidden on index until user scrolls) -->
+  <footer class="footer footer--hidden" role="contentinfo" aria-label="Site footer">
     <div class="footer-left">
       <h3>Creation</h3>
       <p>Luxury web experiences with quiet precision.</p>
@@ -71,6 +72,9 @@
       <a class="footer-icon" href="https://www.fiverr.com/" target="_blank" rel="noopener" aria-label="Fiverr"><i data-lucide="briefcase"></i></a>
       <a class="footer-icon" href="https://www.upwork.com/" target="_blank" rel="noopener" aria-label="Upwork"><i data-lucide="globe-2"></i></a>
     </div>
+
+    <!-- Small accessible toggle visible to keyboard users to permanently reveal footer if desired -->
+    <button id="reveal-footer-btn" class="visually-hidden-toggle" aria-pressed="false" aria-label="Reveal footer">Show footer</button>
   </footer>
 
   <script src="script.js"></script>
